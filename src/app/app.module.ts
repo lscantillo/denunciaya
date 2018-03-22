@@ -11,7 +11,11 @@ import { HomicidioformPage } from '../pages/homicidioform/homicidioform';
 import { HurtoformPage } from '../pages/hurtoform/hurtoform';
 import { ViolenciaformPage } from '../pages/violenciaform/violenciaform';
 import { MapasPage } from '../pages/mapas/mapas';
-
+import { ClaseshurtoPage } from '../pages/claseshurto/claseshurto';
+import { HurtotransportePage } from '../pages/hurtotransporte/hurtotransporte';
+import { HurtocomercioPage } from '../pages/hurtocomercio/hurtocomercio';
+import { HurtopersonasPage } from '../pages/hurtopersonas/hurtopersonas';
+import { HurtoresidenciasPage } from '../pages/hurtoresidencias/hurtoresidencias';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -33,7 +37,12 @@ export const firebaseConfig = {
     HomicidioformPage,
     HurtoformPage,
     ViolenciaformPage,
-    MapasPage
+    MapasPage,
+    ClaseshurtoPage,
+    HurtocomercioPage,
+    HurtopersonasPage,
+    HurtoresidenciasPage,
+    HurtotransportePage
 
   ],
   imports: [
@@ -42,6 +51,7 @@ export const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -51,7 +61,12 @@ export const firebaseConfig = {
     HomicidioformPage,
     HurtoformPage,
     ViolenciaformPage,
-    MapasPage
+    MapasPage,
+    ClaseshurtoPage,
+    HurtocomercioPage,
+    HurtopersonasPage,
+    HurtoresidenciasPage,
+    HurtotransportePage
   ],
   providers: [
     StatusBar,

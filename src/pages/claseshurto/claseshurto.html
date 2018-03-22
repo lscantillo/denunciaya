@@ -1,0 +1,65 @@
+
+<ion-header>
+
+  <ion-navbar>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+      </button>
+    <ion-title>Tipos de hurto</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card (click)="denunciatransporte()">
+    <img src="../assets/imgs/robo.png"/>
+    <ion-card-content>
+      <ion-card-title>
+        Hurto en transporte publico
+        </ion-card-title>
+      <p>
+        The most popular industrial group ever, and largely
+        responsible for bringing the music to a mass audience.
+      </p>
+    </ion-card-content>
+  </ion-card>
+  <ion-card (click)="denunciacomercio()">
+      <img src="../assets/imgs/robo.png"/>
+      <ion-card-content>
+        <ion-card-title>
+          Hurto a comercio
+          </ion-card-title>
+        <p>
+          The most popular industrial group ever, and largely
+          responsible for bringing the music to a mass audience.
+        </p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card (click)="denunciapersonas()">
+        <img src="../assets/imgs/robo.png"/>
+        <ion-card-content>
+          <ion-card-title>
+            Hurto a personas
+            </ion-card-title>
+          <p>
+            The most popular industrial group ever, and largely
+            responsible for bringing the music to a mass audience.
+          </p>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card (click)="denunciaresidencias()">
+          <img src="../assets/imgs/robo.png"/>
+          <ion-card-content>
+            <ion-card-title>
+              Hurto a residencias
+              </ion-card-title>
+            <p>
+              The most popular industrial group ever, and largely
+              responsible for bringing the music to a mass audience.
+            </p>
+          </ion-card-content>
+        </ion-card>
+</ion-content>

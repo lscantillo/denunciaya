@@ -7,6 +7,7 @@ import { AlertaPage } from '../pages/alerta/alerta';
 import { HomicidioformPage } from '../pages/homicidioform/homicidioform';
 import { HurtoformPage } from '../pages/hurtoform/hurtoform';
 import { ViolenciaformPage } from '../pages/violenciaform/violenciaform';
+import { ClaseshurtoPage } from '../pages/claseshurto/claseshurto'; 
 import { MapasPage } from '../pages/mapas/mapas';
 import { AlertController } from 'ionic-angular';
 
@@ -35,7 +36,7 @@ export class MyApp {
     this.pages = [
       //{ title: 'Home', component: HomePage },
       { title: 'Homicidio', component: HomicidioformPage },
-      { title: 'Hurto', component: HurtoformPage },
+      { title: 'Hurto', component: ClaseshurtoPage },
       { title: 'Violencia Intrafamiliar', component: ViolenciaformPage }
     ];
   }

@@ -24,15 +24,13 @@ export class HurtoformPage {
     //   });
 
   }
-
+  
   EnviarHurto(){
     this.fdb.list("/Denuncias/Hurto").push(this.arrDenuncias)
     // this.fdb.list<'items'>("/Denuncias/Homicidio/Apellidos").push(this.Apellidos)
     // this.fdb.list<'items'>("/Denuncias/Homicidio/Telefono").push(this.Telefono)
     this.navCtrl.push(HomePage);
   }
-
-
   
 
 }
