@@ -14,3 +14,37 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+// .alertDanger{
+//     background-color: white;
+//     color: red;
+//     button{
+//         color: red;
+//     }
+// }
+
+.md,
+.ios,
+.wp {
+
+    .divcolor{
+        background: #488aff;
+        color: white;
+        text-align: center;        
+    }
+    .alertDanger {
+    > div {
+      background: white;
+      color: red;
+      margin-bottom: 10px;
+      button{
+                color: red;
+            }
+    }
+    .alert-message{
+        background: white;
+        color: black;
+        text-align: center;        
+    }
+  }
+  //page-landing {}
+}
