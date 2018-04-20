@@ -1,59 +1,51 @@
 page-home {
 
-    .center{
+        .center{
 
-        text-align: center;
-        }
+            text-align: center;
+            }
 
-    .card-background-page {
+        .card-background-page {
 
-        ion-card {
-          position: relative;
-          text-align: center;
-        }
-      
-        .card-title {
+            ion-card {
+              position: relative;
+              text-align: center;
+            }
+          
+            .card-title {
+              position: absolute;
+              top: 60%;
+              font-size: 2.0em;
+              width: 100%;
+              font-weight: bold;
+              color: #FFF;
+            }
+          
+            .card-subtitle {
+              font-size: 1.0em;
+              position: absolute;
+              top: 52%;
+              width: 100%;
+              color: #fff;
+            }
+          
+        } 
+        
+        .titleicon {
+          display:inline-block;
+          margin-bottom:10px;
+          margin-left: 42px;
+          margin-right: 25px;
+          text-align:left;
           position: absolute;
-          top: 60%;
-          font-size: 2.0em;
-          width: 100%;
-          font-weight: bold;
-          color: #FFF;
-        }
-      
-        .card-subtitle {
-          font-size: 1.0em;
-          position: absolute;
-          top: 52%;
-          width: 100%;
-          color: #fff;
-        }
-      
-      }.card-background-page {
-
-  ion-card {
-    position: relative;
-    text-align: center;
-  }
-
-  .card-title {
-    position: absolute;
-    top: 60%;
-    font-size: 2.0em;
-    width: 100%;
-    font-weight: bold;
-    color: #FFF;
-  }
-
-  .card-subtitle {
-    font-size: 1.0em;
-    position: absolute;
-    top: 52%;
-    width: 100%;
-    color: #fff;
-  }
-
-}
+          width: 90%;
+          left: 0;
+          bottom: 0;
+        }  
+        
+        .ion-content {
+          background-image: url('assets/imgs/my_logo.png');
+      }
 
 
 }

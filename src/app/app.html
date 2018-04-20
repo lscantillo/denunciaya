@@ -1,22 +1,30 @@
 <ion-menu [content]="content">
-    <ion-header>
-      <ion-toolbar>
+    <ion-header >
+      <!-- <ion-toolbar>
         <ion-title>Menu</ion-title>
-      </ion-toolbar>
+      </ion-toolbar> -->
     </ion-header>
   
     <ion-content>
-      <ion-list>
+
+      <img src="assets/imgs/my_logo.png" alt="">
+      <!-- <img src="assets/imgs/header.png" alt=""> -->
+
+      <ion-list >
        
-        <button menuClose ion-item (click)="openHome()">Inicio</button>
+        <button color="primary" menuClose ion-item (click)="openHome()">Inicio</button>
         <div padding class="divcolor">
             <h1>Denuncias <ion-icon name="bookmarks"></ion-icon></h1>
         </div>
        
-        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        <button color="primary" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
           {{p.title}}
         </button>   
-        <button menuClose ion-item (click)="openMapas()">Mapa de Delito <ion-icon name="map"></ion-icon></button>
+        <button color="primary" menuClose ion-item (click)="openMapas()">Mapa de Delito <ion-icon name="map"></ion-icon></button>
+        <button color="primary" menuClose ion-item > </button>
+        <button color="primary" menuClose ion-item > </button>
+        <button color="primary" menuClose ion-item > </button>
+        
       </ion-list>
     </ion-content>
   

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component,ViewChild  } from '@angular/core';
+import { IonicPage, NavController, NavParams, Nav,  Platform } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { HomePage } from '../home/home';
 /**
@@ -15,15 +15,20 @@ import { HomePage } from '../home/home';
   templateUrl: 'violenciaform.html',
 })
 export class ViolenciaformPage {
+  @ViewChild(Nav) nav: Nav;
+
+  rootPage:any = HomePage;
   arrDenuncias= {};
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fdb: AngularFireDatabase) {
+  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private fdb: AngularFireDatabase) {
   }
 
   EnviarViolencia(){
     this.fdb.list("/Denuncias/Violencia").push(this.arrDenuncias)
     // this.fdb.list<'items'>("/Denuncias/Homicidio/Apellidos").push(this.Apellidos)
     // this.fdb.list<'items'>("/Denuncias/Homicidio/Telefono").push(this.Telefono)
-    this.navCtrl.push(HomePage);
+     this.navCtrl.push(HomePage);
+    //this.nav.setRoot(HomePage);
+    //this.navCtrl.popTo(HomePage);
   }
 
 }

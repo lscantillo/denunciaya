@@ -13,7 +13,7 @@ import { HurtoresidenciasPage } from '../hurtoresidencias/hurtoresidencias';
   templateUrl: 'claseshurto.html',
 })
 export class ClaseshurtoPage {
-  arrDenuncias= {};
+  
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
   

@@ -1,6 +1,6 @@
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
      <ion-icon name="menu"></ion-icon>
     </button>
@@ -10,7 +10,18 @@
 </ion-header>
 
 <ion-content >
-<!-- <p>Lat: {{lat}}</p>
-<p>Lon: {{lng}}</p> -->
+
 <div #map id="map"> </div>
+<div hidden> 
+  <ion-list>
+
+    <ion-item class="text" *ngFor="let item of items | async">
+      <!-- {{item | json}} -->
+    </ion-item>
+  
+  </ion-list>
+</div>
+
+
+
 </ion-content>

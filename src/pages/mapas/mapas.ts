@@ -1,12 +1,9 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-/**
- * Generated class for the MapasPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { AngularFireDatabase, snapshotChanges } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
+
 
 //@IonicPage()
 
@@ -18,39 +15,127 @@ declare var google: any;
 })
 export class MapasPage {
 
+  items: Observable<any[]>;
+  //items: Observable<{Latitud :number,Longitud:number}>;
+  
+ 
+  
+
   lat: any;
   lng: any;
+  
   location: any;
   @ViewChild('map') mapRef: ElementRef;
   //map:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public geo: Geolocation) {
+  
+  constructor(public navCtrl: NavController, public navParams: NavParams, public geo: Geolocation,private fdb: AngularFireDatabase) {
+    
+    this.items = fdb.list('Mapa').valueChanges();
+    
+    
+    // this.items.forEach(
+    //    element => {      
+    //    //console.log(element);
+    //    element.forEach(element => {
+    
+    //      console.log(element.Latitud)
+
+    //    });
+    //    //console.log('Latitud:', element);
+    // });
+
+ 
+
+  
+    this.showMap();
+
   }
 
   ionViewDidLoad() {
   //  this.geo.getCurrentPosition().then(pos =>{
   //    this.lat = pos.coords.latitude;
   //    this.lng = pos.coords.longitude;
-  //  }).catch(err => console.log(err));
-  this.showMap();
-
+  //  }).catch(err => console.log(err)); 
+  // this.showMap();
   }
+
+  
 
   showMap(){
     this.geo.getCurrentPosition().then(pos =>{
       this.lat = pos.coords.latitude;
       this.lng = pos.coords.longitude;
-      const location = new google.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
-     
+      const location = new google.maps.LatLng(pos.coords.latitude,pos.coords.longitude);      
+      
+        
+     var heatmapData = [];
+      //   this.items.forEach(element => {
+      //     const point = new google.maps.LatLng(obj.Latitud,obj.Longitud)
+      //     heatmapData.push(point)
+      //     console.log(heatmapData);
+      // });
+      
+      this.items.forEach(
+       element => {      
+       //console.log(element);
+       element.forEach(element => {
+         const point = new google.maps.LatLng(element.Latitud,element.Longitud)
+        heatmapData.push(point)
+         console.log(element.Latitud)
 
+       });
+       //console.log('Latitud:', element);
+    });
+  
+
+      
+
+      
+      // var heatmapData = [
+      //   new google.maps.LatLng(10.9724155,-74.905229),
+      //   new google.maps.LatLng(10.899273, -74.868453),
+      //   new google.maps.LatLng(10.907434, -74.783954),
+      //   new google.maps.LatLng(10.889070, -74.977887),
+      //   new google.maps.LatLng(10.887710, -75.070699),
+      //   new google.maps.LatLng(10.842817, -75.049227),
+      //   new google.maps.LatLng(10.763216, -75.106022),
+      //   new google.maps.LatLng(10.753690, -74.973039),
+      //   new google.maps.LatLng(10.645478, -74.925248),
+      //   new google.maps.LatLng(10.605314, -74.846982),
+      //   new google.maps.LatLng(10.636629, -74.772179),
+      //   new google.maps.LatLng(10.728512, -74.761790),
+      //   new google.maps.LatLng(10.765768, -74.759192),
+      //   new google.maps.LatLng(10.788732, -74.763694),
+      //   new google.maps.LatLng(10.798427, -74.759885),
+      //   new google.maps.LatLng(10.853953, -74.775730),
+      //   new google.maps.LatLng(10.908233, -74.781052),
+      //   new google.maps.LatLng(10.905222, -74.806008),
+      //   new google.maps.LatLng(10.910129, -74.782216),
+      //   new google.maps.LatLng(10.921762, -74.771292),
+      //   new google.maps.LatLng(10.919756, -74.760092),
+      //   new google.maps.LatLng(10.939048, -74.768698),
+      //   new google.maps.LatLng(10.942559, -74.766851),
+      //   new google.maps.LatLng(10.945260, -74.762607)
+      // ];
+      var heatmapData = [];
+      
     const options = {
-      center: location,
-      zoom: 16,
+      center: location,      
+      zoom: 12,
+      title: "Mi posición",
+      icon: 'assets/imgs/pin.png',
       panControl: true,
     }
     //setTimeout(() => {
     const map = new google.maps.Map(this.mapRef.nativeElement,options);
     this.addMarker(location, map);
     // }, 2000);
+
+    var heatmap = new google.maps.visualization.HeatmapLayer({
+      data: heatmapData //json coordenadas
+      //data: coord
+    });
+    heatmap.setMap(map);
     
     }).catch(err => console.log(err));   
   }
@@ -58,8 +143,23 @@ export class MapasPage {
   addMarker(position,map){
     return new google.maps.Marker({
       position,
-      map
+      map     
      } );
+  }
+
+  fillvector(){
+    
+    //this.items = this.fdb.list('Mapa').valueChanges();
+    this.items = this.fdb.list('Mapa').snapshotChanges();
+    var obj = JSON.parse(JSON.stringify(this.items));
+    var heatmapData = [];
+    obj.forEach(element => {
+     var point = new google.maps.LatLng(obj.Latitud,obj.Longitud)
+     heatmapData.push(point)
+     return heatmapData
+     
+    });
+
   }
 
 }
