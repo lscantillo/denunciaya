@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { AngularFireDatabase, snapshotChanges } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
@@ -16,58 +16,49 @@ declare var google: any;
 export class MapasPage {
 
   items: Observable<any[]>;
-  //items: Observable<{Latitud :number,Longitud:number}>;
+  
   
  
   
 
   lat: any;
-  lng: any;
-  
+  lng: any;  
   location: any;
+
   @ViewChild('map') mapRef: ElementRef;
   //map:any;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public geo: Geolocation,private fdb: AngularFireDatabase) {
-    
+  constructor(public navCtrl: NavController, public navParams: NavParams, public geo: Geolocation,private fdb: AngularFireDatabase,public loadingCtrl: LoadingController) {
     this.items = fdb.list('Mapa').valueChanges();
+    // Sentencia para obtener los ultimos valores de las coordenadas de la base de datos
+   // this.items = fdb.list('/Mapa', ref => ref.limitToLast(2)).valueChanges();  
+    //this.showMap();
     
-    
-    // this.items.forEach(
-    //    element => {      
-    //    //console.log(element);
-    //    element.forEach(element => {
-    
-    //      console.log(element.Latitud)
-
-    //    });
-    //    //console.log('Latitud:', element);
-    // });
-
- 
-
-  
-    this.showMap();
-
   }
 
-  ionViewDidLoad() {
-  //  this.geo.getCurrentPosition().then(pos =>{
-  //    this.lat = pos.coords.latitude;
-  //    this.lng = pos.coords.longitude;
-  //  }).catch(err => console.log(err)); 
-  // this.showMap();
+  ionViewDidLoad() {   
+  
+  // let loading = this.loadingCtrl.create({
+  //   content: 'Please wait...'
+  // });
+
+  // loading.present();     
+  setTimeout(() => {    
+    this.showMap();
+    }, 2000);
+    //this.showMap();   
   }
 
   
 
   showMap(){
+    
     this.geo.getCurrentPosition().then(pos =>{
       this.lat = pos.coords.latitude;
       this.lng = pos.coords.longitude;
       const location = new google.maps.LatLng(pos.coords.latitude,pos.coords.longitude);      
       
-        
+       
      var heatmapData = [];
       //   this.items.forEach(element => {
       //     const point = new google.maps.LatLng(obj.Latitud,obj.Longitud)
@@ -85,10 +76,8 @@ export class MapasPage {
 
        });
        //console.log('Latitud:', element);
-    });
-  
-
-      
+      });
+      console.log(heatmapData)      
 
       
       // var heatmapData = [
@@ -117,13 +106,11 @@ export class MapasPage {
       //   new google.maps.LatLng(10.942559, -74.766851),
       //   new google.maps.LatLng(10.945260, -74.762607)
       // ];
-      var heatmapData = [];
+      //var heatmapData = [];
       
     const options = {
       center: location,      
-      zoom: 12,
-      title: "Mi posición",
-      icon: 'assets/imgs/pin.png',
+      zoom: 12,      
       panControl: true,
     }
     //setTimeout(() => {
@@ -135,7 +122,9 @@ export class MapasPage {
       data: heatmapData //json coordenadas
       //data: coord
     });
-    heatmap.setMap(map);
+    // heatmap.setMap(map);
+    setInterval(heatmap.setMap(map),500);
+    
     
     }).catch(err => console.log(err));   
   }
@@ -143,23 +132,10 @@ export class MapasPage {
   addMarker(position,map){
     return new google.maps.Marker({
       position,
-      map     
+      map          
      } );
   }
 
-  fillvector(){
-    
-    //this.items = this.fdb.list('Mapa').valueChanges();
-    this.items = this.fdb.list('Mapa').snapshotChanges();
-    var obj = JSON.parse(JSON.stringify(this.items));
-    var heatmapData = [];
-    obj.forEach(element => {
-     var point = new google.maps.LatLng(obj.Latitud,obj.Longitud)
-     heatmapData.push(point)
-     return heatmapData
-     
-    });
-
-  }
+  
 
 }

@@ -10,13 +10,20 @@
 </ion-header>
 
 <ion-content >
+    <ion-card>
+        <ion-card-header ion-item color="primary">
+          Mapa de Calor:
+          Concentración Denuncias
+        </ion-card-header>        
+    </ion-card>
+<div #map id="map" > </div>
 
-<div #map id="map"> </div>
-<div hidden> 
+<!-- <div  hidden></div> -->
+<div>
   <ion-list>
 
     <ion-item class="text" *ngFor="let item of items | async">
-      <!-- {{item | json}} -->
+      {{item | json}}
     </ion-item>
   
   </ion-list>

@@ -74,10 +74,16 @@
         <ion-input [(ngModel)]="arrDenuncias.DireccionDenuncia" type="text"></ion-input>
     </ion-item>
 
-    <ion-item>
+    <!-- <ion-item>
         <ion-label>Ubicación Actual</ion-label>
         <ion-toggle checked="false"></ion-toggle>
-    </ion-item>  
+    </ion-item>  -->
+    
+    
+    <ion-item>
+      <ion-label>Ubicación Actual</ion-label>
+      <ion-toggle [(ngModel)]="ubicacion" checked="false"></ion-toggle>
+    </ion-item>
   
   </ion-list>
 

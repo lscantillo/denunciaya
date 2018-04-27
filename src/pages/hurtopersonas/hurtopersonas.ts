@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the HurtopersonasPage page.
@@ -15,11 +17,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class HurtopersonasPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  arrDenuncias= {};
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fdb: AngularFireDatabase) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HurtopersonasPage');
+  }
+
+  EnviarHurtoPersonas(){
+    this.fdb.list("/Denuncias/Hurto/Personas").push(this.arrDenuncias)
+    // this.fdb.list<'items'>("/Denuncias/Homicidio/Apellidos").push(this.Apellidos)
+    // this.fdb.list<'items'>("/Denuncias/Homicidio/Telefono").push(this.Telefono)
+     this.navCtrl.push(HomePage);
+    
   }
 
 }
