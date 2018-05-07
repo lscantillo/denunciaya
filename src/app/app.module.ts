@@ -20,6 +20,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { Geolocation } from '@ionic-native/geolocation';
+import { TelefonosPage } from '../pages/telefonos/telefonos';
+import { CallNumber } from '@ionic-native/call-number';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyA_jOFmnvR-jwlbeIGD5DNxjzMKQJ4LRoI",
@@ -42,7 +44,9 @@ export const firebaseConfig = {
     HurtocomercioPage,
     HurtopersonasPage,
     HurtoresidenciasPage,
-    HurtotransportePage
+    HurtotransportePage,
+    TelefonosPage
+   
 
   ],
   imports: [
@@ -66,13 +70,15 @@ export const firebaseConfig = {
     HurtocomercioPage,
     HurtopersonasPage,
     HurtoresidenciasPage,
-    HurtotransportePage
+    HurtotransportePage,
+    TelefonosPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     AngularFireDatabase,
     Geolocation,
+    CallNumber,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

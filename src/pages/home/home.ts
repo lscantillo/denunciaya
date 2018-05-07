@@ -6,6 +6,7 @@ import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { HomicidioformPage } from '../homicidioform/homicidioform';
 import { HurtoformPage } from '../hurtoform/hurtoform';
 import { ViolenciaformPage } from '../violenciaform/violenciaform';
+import { ClaseshurtoPage } from '../claseshurto/claseshurto';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -35,7 +36,7 @@ export class HomePage {
             text: 'Agree',
             handler: () => {
               console.log('Agree clicked');              
-             this.navCtrl.push(HurtoformPage);
+             this.navCtrl.push(ClaseshurtoPage);
               
             }
           }

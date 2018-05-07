@@ -11,32 +11,36 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="ion-content">
     
-    <ion-card>
-    <ion-card-header ion-item>
+    <ion-card class="ion-content">
+    <ion-card-header  class="home">
       Seleccione Tipo De Hurto
     </ion-card-header>
   
     <ion-list>
-      <button ion-item (click)="denunciapersonas()">
+      <button class="ion-content" ion-item (click)="denunciapersonas()">
         <ion-icon name="people" item-start></ion-icon>
         Hurto a Personas
+        <ion-icon name="arrow-dropright" item-end></ion-icon>
       </button>
   
-      <button ion-item (click)="denunciacomercio()">
+      <button class="ion-content" ion-item (click)="denunciacomercio()">
         <ion-icon name="cart" item-start></ion-icon>
         Hurto a Comercio
+        <ion-icon name="arrow-dropright" item-end></ion-icon>
       </button>
   
-      <button ion-item (click)="denunciatransporte()">
+      <button class="ion-content" ion-item (click)="denunciatransporte()">
         <ion-icon name="bus" item-start></ion-icon>
         Hurto Transporte Público
+        <ion-icon name="arrow-dropright" item-end></ion-icon>
       </button>
   
-      <button ion-item (click)="denunciaresidencias()">
+      <button class="ion-content" ion-item (click)="denunciaresidencias()">
         <ion-icon name="home" item-start></ion-icon>
         Hurto a Residencias
+        <ion-icon name="arrow-dropright" item-end></ion-icon>
       </button>     
   
     </ion-list>

@@ -10,6 +10,7 @@ import { ViolenciaformPage } from '../pages/violenciaform/violenciaform';
 import { ClaseshurtoPage } from '../pages/claseshurto/claseshurto'; 
 import { MapasPage } from '../pages/mapas/mapas';
 import { AlertController } from 'ionic-angular';
+import { TelefonosPage } from '../pages/telefonos/telefonos';
 
 @Component({
   templateUrl: 'app.html'
@@ -56,6 +57,11 @@ export class MyApp {
   openMapas(){
     this.nav.setRoot(MapasPage);
   }
+
+  opentelefonos(){
+    this.nav.setRoot(TelefonosPage)
+  }
+
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
