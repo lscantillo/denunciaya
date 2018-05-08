@@ -29,7 +29,12 @@ export class MapasPage {
   //map:any;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, public geo: Geolocation,private fdb: AngularFireDatabase,public loadingCtrl: LoadingController) {
+    // setInterval(() => {    
+    //   this.items = fdb.list('Mapa').valueChanges();
+    //   console.log("Funcionando")
+    //   }, 2000);
     this.items = fdb.list('Mapa').valueChanges();
+    
     // Sentencia para obtener los ultimos valores de las coordenadas de la base de datos
    // this.items = fdb.list('/Mapa', ref => ref.limitToLast(2)).valueChanges();  
     //this.showMap();
@@ -43,10 +48,12 @@ export class MapasPage {
   // });
 
   // loading.present();     
-  setTimeout(() => {    
-    this.showMap();
-    }, 2000);
-    //this.showMap();   
+  // setInterval(() => {    
+  //   this.showMap();
+  //   console.log("Funcionando")
+  //   }, 2000);
+    //this.items = this.fdb.list('Mapa').valueChanges();
+    this.showMap();   
   }
 
   
@@ -60,11 +67,7 @@ export class MapasPage {
       
        
      var heatmapData = [];
-      //   this.items.forEach(element => {
-      //     const point = new google.maps.LatLng(obj.Latitud,obj.Longitud)
-      //     heatmapData.push(point)
-      //     console.log(heatmapData);
-      // });
+      
       
       this.items.forEach(
        element => {      
@@ -113,17 +116,20 @@ export class MapasPage {
       zoom: 12,      
       panControl: true,
     }
-    //setTimeout(() => {
+    
     const map = new google.maps.Map(this.mapRef.nativeElement,options);
     this.addMarker(location, map);
-    // }, 2000);
+   
 
     var heatmap = new google.maps.visualization.HeatmapLayer({
       data: heatmapData //json coordenadas
       //data: coord
     });
-    // heatmap.setMap(map);
-    setInterval(heatmap.setMap(map),500);
+    heatmap.setMap(map);
+    setInterval(() => {    
+      heatmap.setMap(map);
+      console.log("Funcionando heatmap")
+      }, 5000);
     
     
     }).catch(err => console.log(err));   
@@ -138,7 +144,9 @@ export class MapasPage {
 
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
+    this.items = this.fdb.list('Mapa').valueChanges();
     this.showMap;
+    
 
     setTimeout(() => {
       console.log('Async operation has ended');

@@ -401,11 +401,11 @@ webpackEmptyAsyncContext.id = 155;
 
 var map = {
 	"../pages/alerta/alerta.module": [
-		451,
+		450,
 		8
 	],
 	"../pages/claseshurto/claseshurto.module": [
-		450,
+		451,
 		7
 	],
 	"../pages/hurtocomercio/hurtocomercio.module": [
@@ -483,6 +483,10 @@ var MapasPage = (function () {
         this.geo = geo;
         this.fdb = fdb;
         this.loadingCtrl = loadingCtrl;
+        // setInterval(() => {    
+        //   this.items = fdb.list('Mapa').valueChanges();
+        //   console.log("Funcionando")
+        //   }, 2000);
         this.items = fdb.list('Mapa').valueChanges();
         // Sentencia para obtener los ultimos valores de las coordenadas de la base de datos
         // this.items = fdb.list('/Mapa', ref => ref.limitToLast(2)).valueChanges();  
@@ -492,12 +496,13 @@ var MapasPage = (function () {
         // let loading = this.loadingCtrl.create({
         //   content: 'Please wait...'
         // });
-        var _this = this;
         // loading.present();     
-        setTimeout(function () {
-            _this.showMap();
-        }, 2000);
-        //this.showMap();   
+        // setInterval(() => {    
+        //   this.showMap();
+        //   console.log("Funcionando")
+        //   }, 2000);
+        //this.items = this.fdb.list('Mapa').valueChanges();
+        this.showMap();
     };
     MapasPage.prototype.showMap = function () {
         var _this = this;
@@ -506,11 +511,6 @@ var MapasPage = (function () {
             _this.lng = pos.coords.longitude;
             var location = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
             var heatmapData = [];
-            //   this.items.forEach(element => {
-            //     const point = new google.maps.LatLng(obj.Latitud,obj.Longitud)
-            //     heatmapData.push(point)
-            //     console.log(heatmapData);
-            // });
             _this.items.forEach(function (element) {
                 //console.log(element);
                 element.forEach(function (element) {
@@ -553,16 +553,17 @@ var MapasPage = (function () {
                 zoom: 12,
                 panControl: true,
             };
-            //setTimeout(() => {
             var map = new google.maps.Map(_this.mapRef.nativeElement, options);
             _this.addMarker(location, map);
-            // }, 2000);
             var heatmap = new google.maps.visualization.HeatmapLayer({
                 data: heatmapData //json coordenadas
                 //data: coord
             });
-            // heatmap.setMap(map);
-            setInterval(heatmap.setMap(map), 500);
+            heatmap.setMap(map);
+            setInterval(function () {
+                heatmap.setMap(map);
+                console.log("Funcionando heatmap");
+            }, 5000);
         }).catch(function (err) { return console.log(err); });
     };
     MapasPage.prototype.addMarker = function (position, map) {
@@ -573,6 +574,7 @@ var MapasPage = (function () {
     };
     MapasPage.prototype.doRefresh = function (refresher) {
         console.log('Begin async operation', refresher);
+        this.items = this.fdb.list('Mapa').valueChanges();
         this.showMap;
         setTimeout(function () {
             console.log('Async operation has ended');
@@ -581,15 +583,16 @@ var MapasPage = (function () {
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('map'),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */])
+        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */]) === "function" && _a || Object)
     ], MapasPage.prototype, "mapRef", void 0);
     MapasPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-mapas',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\mapas\mapas.html"*/'<ion-header>\n\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n     <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title class="center">Mapa Del Delito</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content class="ion-content">\n\n        <ion-refresher (ionRefresh)="doRefresh($event)">\n          <ion-refresher-content\n          pullingIcon="arrow-dropdown"\n          pullingText="Pull to refresh"\n          refreshingSpinner="circles"\n          refreshingText="Refreshing...">            \n          </ion-refresher-content>\n        </ion-refresher>\n      \n    <ion-card>\n        <ion-card-header ion-item color="primary">\n          Mapa de Calor:\n          Concentración Denuncias\n        </ion-card-header>        \n    </ion-card>\n<div #map id="map" > </div>\n\n<!-- <div  hidden></div> -->\n<div>\n  <ion-list>\n\n    <ion-item class="text" *ngFor="let item of items | async">\n      {{item | json}}\n    </ion-item>\n  \n  </ion-list>\n</div>\n\n\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\mapas\mapas.html"*/,
+            selector: 'page-mapas',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\mapas\mapas.html"*/'<ion-header>\n\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n     <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title class="center">Mapa Del Delito</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content class="ion-content">\n\n        <ion-refresher (ionRefresh)="doRefresh($event)">\n          <ion-refresher-content\n          pullingIcon="arrow-dropdown"\n          pullingText="Pull to refresh"\n          refreshingSpinner="circles"\n          refreshingText="Refreshing...">            \n          </ion-refresher-content>\n        </ion-refresher>\n      \n    <ion-card>\n        <ion-card-header ion-item color="primary">\n          Mapa de Calor:\n          Concentración Denuncias\n        </ion-card-header>        \n    </ion-card>\n<div #map id="map" > </div>\n\n<!-- <div  hidden></div> -->\n<div hidden>\n  <ion-list>\n\n    <ion-item class="text" *ngFor="let item of items | async">\n      {{item | json}}\n    </ion-item>\n  \n  </ion-list>\n</div>\n\n\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\mapas\mapas.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */], __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]])
+        __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _f || Object])
     ], MapasPage);
     return MapasPage;
+    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=mapas.js.map
@@ -821,7 +824,7 @@ var HomePage = (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar color="primary">\n      <button ion-button menuToggle>\n          <ion-icon name="menu"></ion-icon>\n      </button>\n      <img class="titleicon" src="assets/imgs/headerapp.png" width="30px" style="display:inline-block" height="40px"/>\n      \n  </ion-navbar>  \n  </ion-header>\n\n<ion-content class="ion-content">\n\n   \n    <ion-list >\n        <ion-list-header  class="home">\n            Denuncias\n        </ion-list-header>\n      <ion-item (click)="alertahomicidio()" class="ion-content">\n          <ion-avatar item-start>\n              <img src="assets/imgs/crime.png">\n          </ion-avatar>\n        <!-- <ion-icon name="leaf" item-start></ion-icon> -->\n          Homicidio\n        <ion-icon name="arrow-dropright" item-end></ion-icon>\n      </ion-item>\n\n      <ion-item (click)="alertarobo()" class="ion-content">\n          <ion-avatar item-start>\n              <img src="assets/imgs/robo.png">\n          </ion-avatar>\n          Hurto\n        <ion-icon name="arrow-dropright" item-end></ion-icon>\n      </ion-item>\n\n      <ion-item (click)="alertaviolencia()" class="ion-content">\n          <ion-avatar item-start>\n              <img src="assets/imgs/acoso.png">\n          </ion-avatar>\n          Violencia Intrafamiliar\n        <ion-icon name="arrow-dropright" item-end></ion-icon>\n      </ion-item>\n\n      <ion-item class="ion-content">\n          <ion-avatar item-start>\n              <img src="assets/imgs/people.png">\n          </ion-avatar>\n          Otras Denuncias\n        <ion-icon name="arrow-dropright" item-end></ion-icon>\n      </ion-item>\n      \n    </ion-list>\n    \n    \n    \n    <ion-fab bottom right >\n        <button ion-fab><ion-icon name="share"></ion-icon></button>\n        <ion-fab-list side="top">\n          <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>\n          <button ion-fab action="https://twitter.com/denunciayageo"><ion-icon name="logo-twitter"></ion-icon></button>\n          <button ion-fab><ion-icon name="logo-youtube"></ion-icon></button>\n        </ion-fab-list>\n        <ion-fab-list side="left">\n          <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>\n        </ion-fab-list>\n      </ion-fab>\n  \n  \n</ion-content>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\home\home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar color="primary">\n      <button ion-button menuToggle>\n          <ion-icon name="menu"></ion-icon>\n      </button>\n      <img class="titleicon" src="assets/imgs/headerapp.png" width="30px" style="display:inline-block" height="40px"/>\n      \n  </ion-navbar>  \n  </ion-header>\n\n<ion-content class="ion-content">\n\n   \n    <ion-list >\n        <ion-list-header  class="home">\n            Denuncias\n        </ion-list-header>\n      <ion-item (click)="alertahomicidio()" class="ion-content">\n          <ion-avatar item-start>\n              <img src="assets/imgs/crime.png">\n          </ion-avatar>\n        <!-- <ion-icon name="leaf" item-start></ion-icon> -->\n          Homicidio\n        <ion-icon name="arrow-dropright" item-end></ion-icon>\n      </ion-item>\n\n      <ion-item (click)="alertarobo()" class="ion-content">\n          <ion-avatar item-start>\n              <img src="assets/imgs/robo.png">\n          </ion-avatar>\n          Hurto\n        <ion-icon name="arrow-dropright" item-end></ion-icon>\n      </ion-item>\n\n      <ion-item (click)="alertaviolencia()" class="ion-content">\n          <ion-avatar item-start>\n              <img src="assets/imgs/acoso.png">\n          </ion-avatar>\n          Violencia Intrafamiliar\n        <ion-icon name="arrow-dropright" item-end></ion-icon>\n      </ion-item>\n\n      <ion-item class="ion-content">\n          <ion-avatar item-start>\n              <img src="assets/imgs/people.png">\n          </ion-avatar>\n          Otras Denuncias\n        <ion-icon name="arrow-dropright" item-end></ion-icon>\n      </ion-item>\n      \n    </ion-list>\n   \n\n    <ion-footer class="footer" >\n            Aplicación Proyecto Final: Acosta Julian, Cantillo Luis\n    </ion-footer>\n    \n<!--     \n    <ion-fab bottom right >\n        <button ion-fab><ion-icon name="share"></ion-icon></button>\n        <ion-fab-list side="top">\n          <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>\n          <button ion-fab action="https://twitter.com/denunciayageo"><ion-icon name="logo-twitter"></ion-icon></button>\n          <button ion-fab><ion-icon name="logo-youtube"></ion-icon></button>\n        </ion-fab-list>\n        <ion-fab-list side="left">\n          <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>\n        </ion-fab-list>\n      </ion-fab> -->\n  \n  \n</ion-content>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\home\home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
             __WEBPACK_IMPORTED_MODULE_2_ionic_angular_navigation_nav_controller__["a" /* NavController */]])
@@ -922,8 +925,8 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */], {}, {
                     links: [
-                        { loadChildren: '../pages/claseshurto/claseshurto.module#ClaseshurtoPageModule', name: 'ClaseshurtoPage', segment: 'claseshurto', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/alerta/alerta.module#AlertaPageModule', name: 'AlertaPage', segment: 'alerta', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/claseshurto/claseshurto.module#ClaseshurtoPageModule', name: 'ClaseshurtoPage', segment: 'claseshurto', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/hurtocomercio/hurtocomercio.module#HurtocomercioPageModule', name: 'HurtocomercioPage', segment: 'hurtocomercio', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/hurtoform/hurtoform.module#HurtoformPageModule', name: 'HurtoformPage', segment: 'hurtoform', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/hurtopersonas/hurtopersonas.module#HurtopersonasPageModule', name: 'HurtopersonasPage', segment: 'hurtopersonas', priority: 'low', defaultHistory: [] },

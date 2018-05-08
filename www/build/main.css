@@ -28188,6 +28188,13 @@ page-home .home {
   font-size: 20px;
 }
 
+page-home .footer {
+  background: #4169E1;
+  color: white;
+  font-size: 10px;
+  text-align: center;
+}
+
 page-home .center {
   text-align: center;
 }
@@ -28239,7 +28246,7 @@ page-mapas .center {
 }
 
 page-mapas #map {
-  height: 88%;
+  height: 89%;
 }
 
 page-mapas .ion-content {
