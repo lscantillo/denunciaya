@@ -46,6 +46,7 @@ var HomicidioformPage = (function () {
             console.log("True_toggle_gps");
             this.arrDenuncias[0] = { Latitud: this.lat, Longitud: this.lng };
             this.fdb.list("/Denuncias/Homicidio").push(this.arrDenuncias);
+            this.fdb.list("/Mapa").push({ Latitud: this.lat, Longitud: this.lng });
             // this.fdb.list("/Denuncias/Homicidio").push({Latitud:this.lat})
             // this.fdb.list("/Denuncias/Homicidio").push({Latitud:this.lng})
             console.log("Latitud", this.lat);
@@ -69,15 +70,16 @@ var HomicidioformPage = (function () {
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Nav */]),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Nav */])
+        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Nav */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Nav */]) === "function" && _a || Object)
     ], HomicidioformPage.prototype, "nav", void 0);
     HomicidioformPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-homicidioform',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\homicidioform\homicidioform.html"*/'<!--\n  Generated template for the HomicidioformPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="primary">\n      <button ion-button menuToggle>\n          <ion-icon name="menu"></ion-icon>\n      </button>\n    <ion-title class="center">Formulario Homicidio</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-list>\n    \n    <h4 class="center">Digite los siguientes campos</h4>\n    <ion-item>\n      <ion-label required stacked>Nombres</ion-label>\n      <ion-input required [(ngModel)]="arrDenuncias.Nombres" type="text"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label stacked>Apellidos</ion-label>\n      <ion-input required [(ngModel)]="arrDenuncias.Apellidos" type="text" required></ion-input>\n    </ion-item>\n\n    <ion-item>\n        <ion-label required stacked>Género</ion-label>\n        <ion-select [(ngModel)]="arrDenuncias.Genero">\n            <ion-option value="Masculino">Masculino</ion-option>\n            <ion-option value="Femenino">Femenino</ion-option>                   \n          </ion-select>\n    </ion-item>\n  \n    <ion-item>\n      <ion-label>Tipo de Documento</ion-label>\n      <ion-select required [(ngModel)]="arrDenuncias.TipoDocumento">\n        <ion-option value="CC">Cédula de ciudadanía</ion-option>\n        <ion-option value="CE">Cédula de Extranjeria</ion-option>\n        <ion-option value="TI">Tarjeta de Identidad</ion-option>        \n      </ion-select>\n    </ion-item>\n\n    <ion-item>\n      <ion-label stacked>Número de Documento</ion-label>\n      <ion-input required [(ngModel)]="arrDenuncias.NumDoc" type="number"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label stacked>Telefono</ion-label>\n      <ion-input required [(ngModel)]="arrDenuncias.Telefono" type="number"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label stacked>Correo Electrónico</ion-label>\n      <ion-input [(ngModel)]="arrDenuncias.Email" type="email"></ion-input>\n    </ion-item>\n\n    <h4 class="center">Información de la denuncia</h4>\n\n    <ion-item>\n        <ion-label stacked>Describa la denuncia</ion-label>\n        <ion-input required [(ngModel)]="arrDenuncias.Denuncia" type="text"></ion-input>\n    </ion-item>\n\n    <ion-item>\n        <ion-label stacked>Dirección de la denuncia</ion-label>\n        <ion-input [(ngModel)]="arrDenuncias.DireccionDenuncia" type="text"></ion-input>\n    </ion-item>\n\n    <!-- <ion-item>\n        <ion-label>Ubicación Actual</ion-label>\n        <ion-toggle checked="false"></ion-toggle>\n    </ion-item>  -->\n    \n    \n    <ion-item>\n      <ion-label>Ubicación Actual</ion-label>\n      <ion-toggle [(ngModel)]="ubicacion" checked="false"></ion-toggle>\n    </ion-item>\n  \n  </ion-list>\n\n    \n    <div padding>\n      <button (click)="EnviarHom()" ion-button block>Enviar Denuncia</button>\n    </div>\n</ion-content>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\homicidioform\homicidioform.html"*/,
+            selector: 'page-homicidioform',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\homicidioform\homicidioform.html"*/'<!--\n  Generated template for the HomicidioformPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="primary">\n      <button ion-button menuToggle>\n          <ion-icon name="menu"></ion-icon>\n      </button>\n    <ion-title class="center">Formulario Homicidio</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n  <form #loginForm="ngForm"  autocomplete="off">\n  <ion-list>\n    \n    <h4 class="center">Digite los siguientes campos</h4>\n    <ion-item>\n      <ion-label stacked>Nombres</ion-label>\n      <ion-input required name="nombres" [(ngModel)]="arrDenuncias.Nombres" type="text"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label stacked>Apellidos</ion-label>\n      <ion-input required name="apellidos" [(ngModel)]="arrDenuncias.Apellidos" type="text" required></ion-input>\n    </ion-item>\n\n    <ion-item>\n        <ion-label stacked>Género</ion-label>\n        <ion-select require name="genero" [(ngModel)]="arrDenuncias.Genero">\n            <ion-option value="Masculino">Masculino</ion-option>\n            <ion-option value="Femenino">Femenino</ion-option>                   \n          </ion-select>\n    </ion-item>\n  \n    <ion-item>\n      <ion-label>Tipo de Documento</ion-label>\n      <ion-select required name="documento" [(ngModel)]="arrDenuncias.TipoDocumento">\n        <ion-option value="CC">Cédula de ciudadanía</ion-option>\n        <ion-option value="CE">Cédula de Extranjeria</ion-option>\n        <ion-option value="TI">Tarjeta de Identidad</ion-option>        \n      </ion-select>\n    </ion-item>\n\n    <ion-item>\n      <ion-label stacked>Número de Documento</ion-label>\n      <ion-input required name="nrodocumento" [(ngModel)]="arrDenuncias.NumDoc" type="number"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label stacked>Telefono</ion-label>\n      <ion-input required name="telefono" [(ngModel)]="arrDenuncias.Telefono" type="number"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label stacked>Correo Electrónico</ion-label>\n      <ion-input required name="correo" [(ngModel)]="arrDenuncias.Email" type="email"></ion-input>\n    </ion-item>\n\n    <h4 class="center">Información de la denuncia</h4>\n\n    <ion-item>\n        <ion-label stacked>Describa la denuncia</ion-label>\n        <ion-input required name="denuncia" [(ngModel)]="arrDenuncias.Denuncia" type="text"></ion-input>\n    </ion-item>\n\n    <ion-item>\n        <ion-label stacked>Dirección de la denuncia</ion-label>\n        <ion-input required name="direccion" [(ngModel)]="arrDenuncias.DireccionDenuncia" type="text"></ion-input>\n    </ion-item>\n\n    \n    \n    \n    <ion-item>\n      <ion-label>Ubicación Actual</ion-label>\n      <ion-toggle name="ubicacion" [(ngModel)]="ubicacion" checked="false"></ion-toggle>\n    </ion-item>\n  \n  </ion-list>\n\n    \n    <div padding>\n      <button (click)="EnviarHom()" ion-button class="submit-btn" full type="submit" [disabled]="!loginForm.form.valid">Enviar Denuncia</button>\n    </div>\n\n  </form>\n</ion-content>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\homicidioform\homicidioform.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]])
+        __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _e || Object])
     ], HomicidioformPage);
     return HomicidioformPage;
+    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=homicidioform.js.map
@@ -93,6 +95,7 @@ var HomicidioformPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__ = __webpack_require__(116);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -106,35 +109,53 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-/**
- * Generated class for the HurtotransportePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
+//@IonicPage()
 var HurtotransportePage = (function () {
-    function HurtotransportePage(navCtrl, navParams, fdb) {
+    function HurtotransportePage(navCtrl, navParams, fdb, geo) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.fdb = fdb;
+        this.geo = geo;
         this.arrDenuncias = {};
+        this.showMap();
     }
     HurtotransportePage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad HurtotransportePage');
     };
     HurtotransportePage.prototype.EnviarHurtoTransporte = function () {
-        this.fdb.list("/Denuncias/Hurto/Transporte").push(this.arrDenuncias);
-        // this.fdb.list<'items'>("/Denuncias/Homicidio/Apellidos").push(this.Apellidos)
-        // this.fdb.list<'items'>("/Denuncias/Homicidio/Telefono").push(this.Telefono)
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+        this.showMap();
+        if (this.ubicacion == true) {
+            //this.showMap();
+            console.log("True_toggle_gps");
+            this.arrDenuncias[0] = { Latitud: this.lat, Longitud: this.lng };
+            this.fdb.list("/Denuncias/Hurto/Transporte").push(this.arrDenuncias);
+            this.fdb.list("/Mapa").push({ Latitud: this.lat, Longitud: this.lng });
+            console.log("Latitud", this.lat);
+            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+        }
+        else {
+            this.fdb.list("/Denuncias/Hurto/Transporte").push(this.arrDenuncias);
+            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+            console.log("False_toggle_gps");
+        }
+    };
+    HurtotransportePage.prototype.showMap = function () {
+        var _this = this;
+        this.geo.getCurrentPosition().then(function (pos) {
+            _this.lat = pos.coords.latitude;
+            _this.lng = pos.coords.longitude;
+            return _this.lat, _this.lng;
+        }).catch(function (err) { return console.log(err); });
     };
     HurtotransportePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-hurtotransporte',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\hurtotransporte\hurtotransporte.html"*/'<!--\n  Generated template for the HurtotransportePage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color= "primary">\n    <ion-title>Hurto Transporte</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n    <ion-list>\n    \n        <h4 class="center">Digite los siguientes campos</h4>\n        <ion-item>\n          <ion-label required stacked>Nombres</ion-label>\n          <ion-input required [(ngModel)]="arrDenuncias.Nombres" type="text"></ion-input>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label stacked>Apellidos</ion-label>\n          <ion-input required [(ngModel)]="arrDenuncias.Apellidos" type="text" required></ion-input>\n        </ion-item>\n    \n        <ion-item>\n            <ion-label required stacked>Género</ion-label>\n            <ion-select [(ngModel)]="arrDenuncias.Genero">\n                <ion-option value="Masculino">Masculino</ion-option>\n                <ion-option value="Femenino">Femenino</ion-option>                   \n              </ion-select>\n        </ion-item>\n      \n        <ion-item>\n          <ion-label>Tipo de Documento</ion-label>\n          <ion-select required [(ngModel)]="arrDenuncias.TipoDocumento">\n            <ion-option value="CC">Cédula de ciudadanía</ion-option>\n            <ion-option value="CE">Cédula de Extranjeria</ion-option>\n            <ion-option value="TI">Tarjeta de Identidad</ion-option>        \n          </ion-select>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label stacked>Número de Documento</ion-label>\n          <ion-input required [(ngModel)]="arrDenuncias.NumDoc" type="number"></ion-input>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label stacked>Telefono</ion-label>\n          <ion-input required [(ngModel)]="arrDenuncias.Telefono" type="number"></ion-input>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label stacked>Correo Electrónico</ion-label>\n          <ion-input [(ngModel)]="arrDenuncias.Email" type="email"></ion-input>\n        </ion-item>\n    \n        <h4 class="center">Información de la denuncia</h4>\n    \n        <ion-item>\n            <ion-label stacked>Describa la denuncia</ion-label>\n            <ion-input required [(ngModel)]="arrDenuncias.Denuncia" type="text"></ion-input>\n        </ion-item>\n    \n        <ion-item>\n            <ion-label stacked>Dirección de la denuncia</ion-label>\n            <ion-input [(ngModel)]="arrDenuncias.DireccionDenuncia" type="text"></ion-input>\n        </ion-item>\n    \n        <ion-item>\n            <ion-label>Ubicación Actual</ion-label>\n            <ion-toggle checked="false"></ion-toggle>\n        </ion-item>  \n      \n      </ion-list>\n      \n      <div padding>\n        <button (click)="EnviarHurtoTransporte()" ion-button block>Enviar Denuncia</button>\n      </div>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\hurtotransporte\hurtotransporte.html"*/,
+            selector: 'page-hurtotransporte',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\hurtotransporte\hurtotransporte.html"*/'<!--\n  Generated template for the HurtotransportePage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color= "primary">\n    <ion-title>Hurto Transporte</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n    <form #loginForm="ngForm"  autocomplete="off">\n        <ion-list>\n          \n          <h4 class="center">Digite los siguientes campos</h4>\n          <ion-item>\n            <ion-label stacked>Nombres</ion-label>\n            <ion-input required name="nombres" [(ngModel)]="arrDenuncias.Nombres" type="text"></ion-input>\n          </ion-item>\n      \n          <ion-item>\n            <ion-label stacked>Apellidos</ion-label>\n            <ion-input required name="apellidos" [(ngModel)]="arrDenuncias.Apellidos" type="text" required></ion-input>\n          </ion-item>\n      \n          <ion-item>\n              <ion-label stacked>Género</ion-label>\n              <ion-select require name="genero" [(ngModel)]="arrDenuncias.Genero">\n                  <ion-option value="Masculino">Masculino</ion-option>\n                  <ion-option value="Femenino">Femenino</ion-option>                   \n                </ion-select>\n          </ion-item>\n        \n          <ion-item>\n            <ion-label>Tipo de Documento</ion-label>\n            <ion-select required name="documento" [(ngModel)]="arrDenuncias.TipoDocumento">\n              <ion-option value="CC">Cédula de ciudadanía</ion-option>\n              <ion-option value="CE">Cédula de Extranjeria</ion-option>\n              <ion-option value="TI">Tarjeta de Identidad</ion-option>        \n            </ion-select>\n          </ion-item>\n      \n          <ion-item>\n            <ion-label stacked>Número de Documento</ion-label>\n            <ion-input required name="nrodocumento" [(ngModel)]="arrDenuncias.NumDoc" type="number"></ion-input>\n          </ion-item>\n      \n          <ion-item>\n            <ion-label stacked>Telefono</ion-label>\n            <ion-input required name="telefono" [(ngModel)]="arrDenuncias.Telefono" type="number"></ion-input>\n          </ion-item>\n      \n          <ion-item>\n            <ion-label stacked>Correo Electrónico</ion-label>\n            <ion-input required name="correo" [(ngModel)]="arrDenuncias.Email" type="email"></ion-input>\n          </ion-item>\n      \n          <h4 class="center">Información de la denuncia</h4>\n      \n          <ion-item>\n              <ion-label stacked>Describa la denuncia</ion-label>\n              <ion-input required name="denuncia" [(ngModel)]="arrDenuncias.Denuncia" type="text"></ion-input>\n          </ion-item>\n      \n          <ion-item>\n              <ion-label stacked>Dirección de la denuncia</ion-label>\n              <ion-input required name="direccion" [(ngModel)]="arrDenuncias.DireccionDenuncia" type="text"></ion-input>\n          </ion-item>\n      \n          \n          \n          \n          <ion-item>\n            <ion-label>Ubicación Actual</ion-label>\n            <ion-toggle name="ubicacion" [(ngModel)]="ubicacion" checked="false"></ion-toggle>\n          </ion-item>\n        \n        </ion-list>\n      \n          \n          <div padding>\n            <button (click)="EnviarHurtoTransporte()" ion-button class="submit-btn" full type="submit" [disabled]="!loginForm.form.valid">Enviar Denuncia</button>\n          </div>\n      \n        </form>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\hurtotransporte\hurtotransporte.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _d || Object])
     ], HurtotransportePage);
     return HurtotransportePage;
+    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=hurtotransporte.js.map
@@ -150,6 +171,7 @@ var HurtotransportePage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__ = __webpack_require__(116);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -163,35 +185,52 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-/**
- * Generated class for the HurtocomercioPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 var HurtocomercioPage = (function () {
-    function HurtocomercioPage(navCtrl, navParams, fdb) {
+    function HurtocomercioPage(navCtrl, navParams, fdb, geo) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.fdb = fdb;
+        this.geo = geo;
         this.arrDenuncias = {};
+        this.showMap();
     }
     HurtocomercioPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad HurtocomercioPage');
     };
     HurtocomercioPage.prototype.EnviarHurtoComercio = function () {
-        this.fdb.list("/Denuncias/Hurto/Comercio").push(this.arrDenuncias);
-        // this.fdb.list<'items'>("/Denuncias/Homicidio/Apellidos").push(this.Apellidos)
-        // this.fdb.list<'items'>("/Denuncias/Homicidio/Telefono").push(this.Telefono)
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+        this.showMap();
+        if (this.ubicacion == true) {
+            //this.showMap();
+            console.log("True_toggle_gps");
+            this.arrDenuncias[0] = { Latitud: this.lat, Longitud: this.lng };
+            this.fdb.list("/Denuncias/Hurto/Comercio").push(this.arrDenuncias);
+            this.fdb.list("/Mapa").push({ Latitud: this.lat, Longitud: this.lng });
+            console.log("Latitud", this.lat);
+            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+        }
+        else {
+            this.fdb.list("/Denuncias/Hurto/Comercio").push(this.arrDenuncias);
+            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+            console.log("False_toggle_gps");
+        }
+    };
+    HurtocomercioPage.prototype.showMap = function () {
+        var _this = this;
+        this.geo.getCurrentPosition().then(function (pos) {
+            _this.lat = pos.coords.latitude;
+            _this.lng = pos.coords.longitude;
+            return _this.lat, _this.lng;
+        }).catch(function (err) { return console.log(err); });
     };
     HurtocomercioPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-hurtocomercio',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\hurtocomercio\hurtocomercio.html"*/'<!--\n  Generated template for the HurtocomercioPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="primary">\n    <ion-title>Hurto Comercio</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n    <ion-list>\n    \n        <h4 class="center">Digite los siguientes campos</h4>\n        <ion-item>\n          <ion-label required stacked>Nombres</ion-label>\n          <ion-input required [(ngModel)]="arrDenuncias.Nombres" type="text"></ion-input>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label stacked>Apellidos</ion-label>\n          <ion-input required [(ngModel)]="arrDenuncias.Apellidos" type="text" required></ion-input>\n        </ion-item>\n    \n        <ion-item>\n            <ion-label required stacked>Género</ion-label>\n            <ion-select [(ngModel)]="arrDenuncias.Genero">\n                <ion-option value="Masculino">Masculino</ion-option>\n                <ion-option value="Femenino">Femenino</ion-option>                   \n              </ion-select>\n        </ion-item>\n      \n        <ion-item>\n          <ion-label>Tipo de Documento</ion-label>\n          <ion-select required [(ngModel)]="arrDenuncias.TipoDocumento">\n            <ion-option value="CC">Cédula de ciudadanía</ion-option>\n            <ion-option value="CE">Cédula de Extranjeria</ion-option>\n            <ion-option value="TI">Tarjeta de Identidad</ion-option>        \n          </ion-select>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label stacked>Número de Documento</ion-label>\n          <ion-input required [(ngModel)]="arrDenuncias.NumDoc" type="number"></ion-input>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label stacked>Telefono</ion-label>\n          <ion-input required [(ngModel)]="arrDenuncias.Telefono" type="number"></ion-input>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label stacked>Correo Electrónico</ion-label>\n          <ion-input [(ngModel)]="arrDenuncias.Email" type="email"></ion-input>\n        </ion-item>\n    \n        <h4 class="center">Información de la denuncia</h4>\n    \n        <ion-item>\n            <ion-label stacked>Describa la denuncia</ion-label>\n            <ion-input required [(ngModel)]="arrDenuncias.Denuncia" type="text"></ion-input>\n        </ion-item>\n    \n        <ion-item>\n            <ion-label stacked>Dirección de la denuncia</ion-label>\n            <ion-input [(ngModel)]="arrDenuncias.DireccionDenuncia" type="text"></ion-input>\n        </ion-item>\n    \n        <ion-item>\n            <ion-label>Ubicación Actual</ion-label>\n            <ion-toggle checked="false"></ion-toggle>\n        </ion-item>  \n      \n      </ion-list>\n      \n      <div padding>\n        <button (click)="EnviarHurtoComercio()" ion-button block>Enviar Denuncia</button>\n      </div>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\hurtocomercio\hurtocomercio.html"*/,
+            selector: 'page-hurtocomercio',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\hurtocomercio\hurtocomercio.html"*/'<!--\n  Generated template for the HurtocomercioPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="primary">\n    <ion-title>Hurto Comercio</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n    <form #loginForm="ngForm"  autocomplete="off">\n        <ion-list>\n          \n          <h4 class="center">Digite los siguientes campos</h4>\n          <ion-item>\n            <ion-label stacked>Nombres</ion-label>\n            <ion-input required name="nombres" [(ngModel)]="arrDenuncias.Nombres" type="text"></ion-input>\n          </ion-item>\n      \n          <ion-item>\n            <ion-label stacked>Apellidos</ion-label>\n            <ion-input required name="apellidos" [(ngModel)]="arrDenuncias.Apellidos" type="text" required></ion-input>\n          </ion-item>\n      \n          <ion-item>\n              <ion-label stacked>Género</ion-label>\n              <ion-select require name="genero" [(ngModel)]="arrDenuncias.Genero">\n                  <ion-option value="Masculino">Masculino</ion-option>\n                  <ion-option value="Femenino">Femenino</ion-option>                   \n                </ion-select>\n          </ion-item>\n        \n          <ion-item>\n            <ion-label>Tipo de Documento</ion-label>\n            <ion-select required name="documento" [(ngModel)]="arrDenuncias.TipoDocumento">\n              <ion-option value="CC">Cédula de ciudadanía</ion-option>\n              <ion-option value="CE">Cédula de Extranjeria</ion-option>\n              <ion-option value="TI">Tarjeta de Identidad</ion-option>        \n            </ion-select>\n          </ion-item>\n      \n          <ion-item>\n            <ion-label stacked>Número de Documento</ion-label>\n            <ion-input required name="nrodocumento" [(ngModel)]="arrDenuncias.NumDoc" type="number"></ion-input>\n          </ion-item>\n      \n          <ion-item>\n            <ion-label stacked>Telefono</ion-label>\n            <ion-input required name="telefono" [(ngModel)]="arrDenuncias.Telefono" type="number"></ion-input>\n          </ion-item>\n      \n          <ion-item>\n            <ion-label stacked>Correo Electrónico</ion-label>\n            <ion-input required name="correo" [(ngModel)]="arrDenuncias.Email" type="email"></ion-input>\n          </ion-item>\n      \n          <h4 class="center">Información de la denuncia</h4>\n      \n          <ion-item>\n              <ion-label stacked>Describa la denuncia</ion-label>\n              <ion-input required name="denuncia" [(ngModel)]="arrDenuncias.Denuncia" type="text"></ion-input>\n          </ion-item>\n      \n          <ion-item>\n              <ion-label stacked>Dirección de la denuncia</ion-label>\n              <ion-input required name="direccion" [(ngModel)]="arrDenuncias.DireccionDenuncia" type="text"></ion-input>\n          </ion-item>\n      \n          \n          \n          \n          <ion-item>\n            <ion-label>Ubicación Actual</ion-label>\n            <ion-toggle name="ubicacion" [(ngModel)]="ubicacion" checked="false"></ion-toggle>\n          </ion-item>\n        \n        </ion-list>\n      \n          \n          <div padding>\n            <button (click)="EnviarHurtoComercio()" ion-button class="submit-btn" full type="submit" [disabled]="!loginForm.form.valid">Enviar Denuncia</button>\n          </div>\n      \n        </form>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\hurtocomercio\hurtocomercio.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _d || Object])
     ], HurtocomercioPage);
     return HurtocomercioPage;
+    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=hurtocomercio.js.map
@@ -207,6 +246,7 @@ var HurtocomercioPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__ = __webpack_require__(116);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -220,35 +260,52 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-/**
- * Generated class for the HurtopersonasPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 var HurtopersonasPage = (function () {
-    function HurtopersonasPage(navCtrl, navParams, fdb) {
+    function HurtopersonasPage(navCtrl, navParams, fdb, geo) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.fdb = fdb;
+        this.geo = geo;
         this.arrDenuncias = {};
+        this.showMap();
     }
     HurtopersonasPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad HurtopersonasPage');
     };
     HurtopersonasPage.prototype.EnviarHurtoPersonas = function () {
-        this.fdb.list("/Denuncias/Hurto/Personas").push(this.arrDenuncias);
-        // this.fdb.list<'items'>("/Denuncias/Homicidio/Apellidos").push(this.Apellidos)
-        // this.fdb.list<'items'>("/Denuncias/Homicidio/Telefono").push(this.Telefono)
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+        this.showMap();
+        if (this.ubicacion == true) {
+            //this.showMap();
+            console.log("True_toggle_gps");
+            this.arrDenuncias[0] = { Latitud: this.lat, Longitud: this.lng };
+            this.fdb.list("/Denuncias/Hurto/Personas").push(this.arrDenuncias);
+            this.fdb.list("/Mapa").push({ Latitud: this.lat, Longitud: this.lng });
+            console.log("Latitud", this.lat);
+            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+        }
+        else {
+            this.fdb.list("/Denuncias/Hurto/Personas").push(this.arrDenuncias);
+            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+            console.log("False_toggle_gps");
+        }
+    };
+    HurtopersonasPage.prototype.showMap = function () {
+        var _this = this;
+        this.geo.getCurrentPosition().then(function (pos) {
+            _this.lat = pos.coords.latitude;
+            _this.lng = pos.coords.longitude;
+            return _this.lat, _this.lng;
+        }).catch(function (err) { return console.log(err); });
     };
     HurtopersonasPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-hurtopersonas',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\hurtopersonas\hurtopersonas.html"*/'<!--\n  Generated template for the HurtopersonasPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="primary">\n    <ion-title>Hurto a Personas</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n    <ion-list>\n    \n        <h4 class="center">Digite los siguientes campos</h4>\n        <ion-item>\n          <ion-label required stacked>Nombres</ion-label>\n          <ion-input required [(ngModel)]="arrDenuncias.Nombres" type="text"></ion-input>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label stacked>Apellidos</ion-label>\n          <ion-input required [(ngModel)]="arrDenuncias.Apellidos" type="text" required></ion-input>\n        </ion-item>\n    \n        <ion-item>\n            <ion-label required stacked>Género</ion-label>\n            <ion-select [(ngModel)]="arrDenuncias.Genero">\n                <ion-option value="Masculino">Masculino</ion-option>\n                <ion-option value="Femenino">Femenino</ion-option>                   \n              </ion-select>\n        </ion-item>\n      \n        <ion-item>\n          <ion-label>Tipo de Documento</ion-label>\n          <ion-select required [(ngModel)]="arrDenuncias.TipoDocumento">\n            <ion-option value="CC">Cédula de ciudadanía</ion-option>\n            <ion-option value="CE">Cédula de Extranjeria</ion-option>\n            <ion-option value="TI">Tarjeta de Identidad</ion-option>        \n          </ion-select>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label stacked>Número de Documento</ion-label>\n          <ion-input required [(ngModel)]="arrDenuncias.NumDoc" type="number"></ion-input>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label stacked>Telefono</ion-label>\n          <ion-input required [(ngModel)]="arrDenuncias.Telefono" type="number"></ion-input>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label stacked>Correo Electrónico</ion-label>\n          <ion-input [(ngModel)]="arrDenuncias.Email" type="email"></ion-input>\n        </ion-item>\n    \n        <h4 class="center">Información de la denuncia</h4>\n    \n        <ion-item>\n            <ion-label stacked>Describa la denuncia</ion-label>\n            <ion-input required [(ngModel)]="arrDenuncias.Denuncia" type="text"></ion-input>\n        </ion-item>\n    \n        <ion-item>\n            <ion-label stacked>Dirección de la denuncia</ion-label>\n            <ion-input [(ngModel)]="arrDenuncias.DireccionDenuncia" type="text"></ion-input>\n        </ion-item>\n    \n        <ion-item>\n            <ion-label>Ubicación Actual</ion-label>\n            <ion-toggle checked="false"></ion-toggle>\n        </ion-item>  \n      \n      </ion-list>\n      \n      <div padding>\n        <button (click)="EnviarHurtoPersonas()" ion-button block>Enviar Denuncia</button>\n      </div>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\hurtopersonas\hurtopersonas.html"*/,
+            selector: 'page-hurtopersonas',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\hurtopersonas\hurtopersonas.html"*/'<!--\n  Generated template for the HurtopersonasPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="primary">\n    <ion-title>Hurto a Personas</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n    <form #loginForm="ngForm"  autocomplete="off">\n        <ion-list>\n          \n          <h4 class="center">Digite los siguientes campos</h4>\n          <ion-item>\n            <ion-label stacked>Nombres</ion-label>\n            <ion-input required name="nombres" [(ngModel)]="arrDenuncias.Nombres" type="text"></ion-input>\n          </ion-item>\n      \n          <ion-item>\n            <ion-label stacked>Apellidos</ion-label>\n            <ion-input required name="apellidos" [(ngModel)]="arrDenuncias.Apellidos" type="text" required></ion-input>\n          </ion-item>\n      \n          <ion-item>\n              <ion-label stacked>Género</ion-label>\n              <ion-select require name="genero" [(ngModel)]="arrDenuncias.Genero">\n                  <ion-option value="Masculino">Masculino</ion-option>\n                  <ion-option value="Femenino">Femenino</ion-option>                   \n                </ion-select>\n          </ion-item>\n        \n          <ion-item>\n            <ion-label>Tipo de Documento</ion-label>\n            <ion-select required name="documento" [(ngModel)]="arrDenuncias.TipoDocumento">\n              <ion-option value="CC">Cédula de ciudadanía</ion-option>\n              <ion-option value="CE">Cédula de Extranjeria</ion-option>\n              <ion-option value="TI">Tarjeta de Identidad</ion-option>        \n            </ion-select>\n          </ion-item>\n      \n          <ion-item>\n            <ion-label stacked>Número de Documento</ion-label>\n            <ion-input required name="nrodocumento" [(ngModel)]="arrDenuncias.NumDoc" type="number"></ion-input>\n          </ion-item>\n      \n          <ion-item>\n            <ion-label stacked>Telefono</ion-label>\n            <ion-input required name="telefono" [(ngModel)]="arrDenuncias.Telefono" type="number"></ion-input>\n          </ion-item>\n      \n          <ion-item>\n            <ion-label stacked>Correo Electrónico</ion-label>\n            <ion-input required name="correo" [(ngModel)]="arrDenuncias.Email" type="email"></ion-input>\n          </ion-item>\n      \n          <h4 class="center">Información de la denuncia</h4>\n      \n          <ion-item>\n              <ion-label stacked>Describa la denuncia</ion-label>\n              <ion-input required name="denuncia" [(ngModel)]="arrDenuncias.Denuncia" type="text"></ion-input>\n          </ion-item>\n      \n          <ion-item>\n              <ion-label stacked>Dirección de la denuncia</ion-label>\n              <ion-input required name="direccion" [(ngModel)]="arrDenuncias.DireccionDenuncia" type="text"></ion-input>\n          </ion-item>\n      \n          \n          \n          \n          <ion-item>\n            <ion-label>Ubicación Actual</ion-label>\n            <ion-toggle name="ubicacion" [(ngModel)]="ubicacion" checked="false"></ion-toggle>\n          </ion-item>\n        \n        </ion-list>\n      \n          \n          <div padding>\n            <button (click)="EnviarHurtoPersonas()" ion-button class="submit-btn" full type="submit" [disabled]="!loginForm.form.valid">Enviar Denuncia</button>\n          </div>\n      \n        </form>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\hurtopersonas\hurtopersonas.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _d || Object])
     ], HurtopersonasPage);
     return HurtopersonasPage;
+    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=hurtopersonas.js.map
@@ -264,6 +321,7 @@ var HurtopersonasPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__ = __webpack_require__(116);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -277,35 +335,52 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-/**
- * Generated class for the HurtoresidenciasPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 var HurtoresidenciasPage = (function () {
-    function HurtoresidenciasPage(navCtrl, navParams, fdb) {
+    function HurtoresidenciasPage(navCtrl, navParams, fdb, geo) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.fdb = fdb;
+        this.geo = geo;
         this.arrDenuncias = {};
+        this.showMap();
     }
     HurtoresidenciasPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad HurtoresidenciasPage');
     };
     HurtoresidenciasPage.prototype.EnviarHurtoResidencia = function () {
-        this.fdb.list("/Denuncias/Hurto/Residencias").push(this.arrDenuncias);
-        // this.fdb.list<'items'>("/Denuncias/Homicidio/Apellidos").push(this.Apellidos)
-        // this.fdb.list<'items'>("/Denuncias/Homicidio/Telefono").push(this.Telefono)
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+        this.showMap();
+        if (this.ubicacion == true) {
+            //this.showMap();
+            console.log("True_toggle_gps");
+            this.arrDenuncias[0] = { Latitud: this.lat, Longitud: this.lng };
+            this.fdb.list("/Denuncias/Hurto/Residencias").push(this.arrDenuncias);
+            this.fdb.list("/Mapa").push({ Latitud: this.lat, Longitud: this.lng });
+            console.log("Latitud", this.lat);
+            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+        }
+        else {
+            this.fdb.list("/Denuncias/Hurto/Residencias").push(this.arrDenuncias);
+            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+            console.log("False_toggle_gps");
+        }
+    };
+    HurtoresidenciasPage.prototype.showMap = function () {
+        var _this = this;
+        this.geo.getCurrentPosition().then(function (pos) {
+            _this.lat = pos.coords.latitude;
+            _this.lng = pos.coords.longitude;
+            return _this.lat, _this.lng;
+        }).catch(function (err) { return console.log(err); });
     };
     HurtoresidenciasPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-hurtoresidencias',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\hurtoresidencias\hurtoresidencias.html"*/'<!--\n  Generated template for the HurtoresidenciasPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="primary">\n    <ion-title>Hurto a Residencias</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n    <ion-list>\n    \n        <h4 class="center">Digite los siguientes campos</h4>\n        <ion-item>\n          <ion-label required stacked>Nombres</ion-label>\n          <ion-input required [(ngModel)]="arrDenuncias.Nombres" type="text"></ion-input>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label stacked>Apellidos</ion-label>\n          <ion-input required [(ngModel)]="arrDenuncias.Apellidos" type="text" required></ion-input>\n        </ion-item>\n    \n        <ion-item>\n            <ion-label required stacked>Género</ion-label>\n            <ion-select [(ngModel)]="arrDenuncias.Genero">\n                <ion-option value="Masculino">Masculino</ion-option>\n                <ion-option value="Femenino">Femenino</ion-option>                   \n              </ion-select>\n        </ion-item>\n      \n        <ion-item>\n          <ion-label>Tipo de Documento</ion-label>\n          <ion-select required [(ngModel)]="arrDenuncias.TipoDocumento">\n            <ion-option value="CC">Cédula de ciudadanía</ion-option>\n            <ion-option value="CE">Cédula de Extranjeria</ion-option>\n            <ion-option value="TI">Tarjeta de Identidad</ion-option>        \n          </ion-select>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label stacked>Número de Documento</ion-label>\n          <ion-input required [(ngModel)]="arrDenuncias.NumDoc" type="number"></ion-input>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label stacked>Telefono</ion-label>\n          <ion-input required [(ngModel)]="arrDenuncias.Telefono" type="number"></ion-input>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label stacked>Correo Electrónico</ion-label>\n          <ion-input [(ngModel)]="arrDenuncias.Email" type="email"></ion-input>\n        </ion-item>\n    \n        <h4 class="center">Información de la denuncia</h4>\n    \n        <ion-item>\n            <ion-label stacked>Describa la denuncia</ion-label>\n            <ion-input required [(ngModel)]="arrDenuncias.Denuncia" type="text"></ion-input>\n        </ion-item>\n    \n        <ion-item>\n            <ion-label stacked>Dirección de la denuncia</ion-label>\n            <ion-input [(ngModel)]="arrDenuncias.DireccionDenuncia" type="text"></ion-input>\n        </ion-item>\n    \n        <ion-item>\n            <ion-label>Ubicación Actual</ion-label>\n            <ion-toggle checked="false"></ion-toggle>\n        </ion-item>  \n      \n      </ion-list>\n      \n      <div padding>\n        <button (click)="EnviarHurtoResidencia()" ion-button block>Enviar Denuncia</button>\n      </div>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\hurtoresidencias\hurtoresidencias.html"*/,
+            selector: 'page-hurtoresidencias',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\hurtoresidencias\hurtoresidencias.html"*/'<!--\n  Generated template for the HurtoresidenciasPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="primary">\n    <ion-title>Hurto a Residencias</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n    <form #loginForm="ngForm"  autocomplete="off">\n        <ion-list>\n          \n          <h4 class="center">Digite los siguientes campos</h4>\n          <ion-item>\n            <ion-label stacked>Nombres</ion-label>\n            <ion-input required name="nombres" [(ngModel)]="arrDenuncias.Nombres" type="text"></ion-input>\n          </ion-item>\n      \n          <ion-item>\n            <ion-label stacked>Apellidos</ion-label>\n            <ion-input required name="apellidos" [(ngModel)]="arrDenuncias.Apellidos" type="text" required></ion-input>\n          </ion-item>\n      \n          <ion-item>\n              <ion-label stacked>Género</ion-label>\n              <ion-select require name="genero" [(ngModel)]="arrDenuncias.Genero">\n                  <ion-option value="Masculino">Masculino</ion-option>\n                  <ion-option value="Femenino">Femenino</ion-option>                   \n                </ion-select>\n          </ion-item>\n        \n          <ion-item>\n            <ion-label>Tipo de Documento</ion-label>\n            <ion-select required name="documento" [(ngModel)]="arrDenuncias.TipoDocumento">\n              <ion-option value="CC">Cédula de ciudadanía</ion-option>\n              <ion-option value="CE">Cédula de Extranjeria</ion-option>\n              <ion-option value="TI">Tarjeta de Identidad</ion-option>        \n            </ion-select>\n          </ion-item>\n      \n          <ion-item>\n            <ion-label stacked>Número de Documento</ion-label>\n            <ion-input required name="nrodocumento" [(ngModel)]="arrDenuncias.NumDoc" type="number"></ion-input>\n          </ion-item>\n      \n          <ion-item>\n            <ion-label stacked>Telefono</ion-label>\n            <ion-input required name="telefono" [(ngModel)]="arrDenuncias.Telefono" type="number"></ion-input>\n          </ion-item>\n      \n          <ion-item>\n            <ion-label stacked>Correo Electrónico</ion-label>\n            <ion-input required name="correo" [(ngModel)]="arrDenuncias.Email" type="email"></ion-input>\n          </ion-item>\n      \n          <h4 class="center">Información de la denuncia</h4>\n      \n          <ion-item>\n              <ion-label stacked>Describa la denuncia</ion-label>\n              <ion-input required name="denuncia" [(ngModel)]="arrDenuncias.Denuncia" type="text"></ion-input>\n          </ion-item>\n      \n          <ion-item>\n              <ion-label stacked>Dirección de la denuncia</ion-label>\n              <ion-input required name="direccion" [(ngModel)]="arrDenuncias.DireccionDenuncia" type="text"></ion-input>\n          </ion-item>\n      \n          \n          \n          \n          <ion-item>\n            <ion-label>Ubicación Actual</ion-label>\n            <ion-toggle name="ubicacion" [(ngModel)]="ubicacion" checked="false"></ion-toggle>\n          </ion-item>\n        \n        </ion-list>\n      \n          \n          <div padding>\n            <button (click)="EnviarHurtoResidencia()" ion-button class="submit-btn" full type="submit" [disabled]="!loginForm.form.valid">Enviar Denuncia</button>\n          </div>\n      \n        </form>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\hurtoresidencias\hurtoresidencias.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _d || Object])
     ], HurtoresidenciasPage);
     return HurtoresidenciasPage;
+    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=hurtoresidencias.js.map
@@ -368,7 +443,7 @@ var TelefonosPage = (function () {
     };
     TelefonosPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-telefonos',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\telefonos\telefonos.html"*/'<!--\n  Generated template for the TelefonosPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="primary">\n      <button ion-button menuToggle>\n          <ion-icon name="menu"></ion-icon>\n      </button>\n    <ion-title>Teléfonos</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content class="ion-content">\n\n  <ion-list>\n      <ion-list-header class="home">\n          Marcado Rápido\n        </ion-list-header>\n\n    <ion-card  class="ion-content" *ngFor="let p of pages" (click)="openPhone(p.number)">\n      <ion-card-content ion-item >\n          <ion-icon name="call"></ion-icon> {{p.number}}    {{p.text}}\n      </ion-card-content>\n    </ion-card>\n\n  </ion-list>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\telefonos\telefonos.html"*/,
+            selector: 'page-telefonos',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\telefonos\telefonos.html"*/'<!--\n  Generated template for the TelefonosPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="primary">\n      <button ion-button menuToggle>\n          <ion-icon name="menu"></ion-icon>\n      </button>\n    <ion-title>Teléfonos</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content class="ion-content">\n\n  <ion-list>\n      <ion-list-header class="home">\n          Marcado Rápido\n        </ion-list-header>\n\n    <ion-card  class="ion-content" *ngFor="let p of pages" (click)="openPhone(p.number)">\n      <ion-card-content ion-item class="home" >\n          <ion-icon name="call"></ion-icon> {{p.number}}    {{p.text}}\n      </ion-card-content>\n    </ion-card>\n\n  </ion-list>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\telefonos\telefonos.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_call_number__["a" /* CallNumber */]])
     ], TelefonosPage);
@@ -408,33 +483,13 @@ var map = {
 		451,
 		7
 	],
-	"../pages/hurtocomercio/hurtocomercio.module": [
-		452,
-		6
-	],
 	"../pages/hurtoform/hurtoform.module": [
 		453,
-		5
-	],
-	"../pages/hurtopersonas/hurtopersonas.module": [
-		454,
-		4
-	],
-	"../pages/hurtoresidencias/hurtoresidencias.module": [
-		455,
-		3
-	],
-	"../pages/hurtotransporte/hurtotransporte.module": [
-		456,
-		2
+		6
 	],
 	"../pages/telefonos/telefonos.module": [
 		457,
-		1
-	],
-	"../pages/violenciaform/violenciaform.module": [
-		458,
-		0
+		5
 	]
 };
 function webpackAsyncContext(req) {
@@ -926,13 +981,8 @@ var AppModule = (function () {
                     links: [
                         { loadChildren: '../pages/alerta/alerta.module#AlertaPageModule', name: 'AlertaPage', segment: 'alerta', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/claseshurto/claseshurto.module#ClaseshurtoPageModule', name: 'ClaseshurtoPage', segment: 'claseshurto', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/hurtocomercio/hurtocomercio.module#HurtocomercioPageModule', name: 'HurtocomercioPage', segment: 'hurtocomercio', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/hurtoform/hurtoform.module#HurtoformPageModule', name: 'HurtoformPage', segment: 'hurtoform', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/hurtopersonas/hurtopersonas.module#HurtopersonasPageModule', name: 'HurtopersonasPage', segment: 'hurtopersonas', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/hurtoresidencias/hurtoresidencias.module#HurtoresidenciasPageModule', name: 'HurtoresidenciasPage', segment: 'hurtoresidencias', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/hurtotransporte/hurtotransporte.module#HurtotransportePageModule', name: 'HurtotransportePage', segment: 'hurtotransporte', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/telefonos/telefonos.module#TelefonosPageModule', name: 'TelefonosPage', segment: 'telefonos', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/violenciaform/violenciaform.module#ViolenciaformPageModule', name: 'ViolenciaformPage', segment: 'violenciaform', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/telefonos/telefonos.module#TelefonosPageModule', name: 'TelefonosPage', segment: 'telefonos', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_17_angularfire2__["a" /* AngularFireModule */].initializeApp(firebaseConfig),
@@ -1156,6 +1206,7 @@ var ClaseshurtoPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__ = __webpack_require__(116);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1169,40 +1220,55 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-/**
- * Generated class for the ViolenciaformPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 var ViolenciaformPage = (function () {
-    function ViolenciaformPage(platform, navCtrl, navParams, fdb) {
+    function ViolenciaformPage(platform, navCtrl, navParams, fdb, geo) {
         this.platform = platform;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.fdb = fdb;
+        this.geo = geo;
         this.rootPage = __WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */];
         this.arrDenuncias = {};
+        this.showMap();
     }
     ViolenciaformPage.prototype.EnviarViolencia = function () {
-        this.fdb.list("/Denuncias/Violencia").push(this.arrDenuncias);
-        // this.fdb.list<'items'>("/Denuncias/Homicidio/Apellidos").push(this.Apellidos)
-        // this.fdb.list<'items'>("/Denuncias/Homicidio/Telefono").push(this.Telefono)
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
-        //this.nav.setRoot(HomePage);
-        //this.navCtrl.popTo(HomePage);
+        this.showMap();
+        if (this.ubicacion == true) {
+            //this.showMap();
+            console.log("True_toggle_gps");
+            this.arrDenuncias[0] = { Latitud: this.lat, Longitud: this.lng };
+            this.fdb.list("/Denuncias/Violencia").push(this.arrDenuncias);
+            this.fdb.list("/Mapa").push({ Latitud: this.lat, Longitud: this.lng });
+            console.log("Latitud", this.lat);
+            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+        }
+        else {
+            this.fdb.list("/Denuncias/Violencia").push(this.arrDenuncias);
+            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+            console.log("False_toggle_gps");
+        }
+    };
+    ViolenciaformPage.prototype.showMap = function () {
+        var _this = this;
+        this.geo.getCurrentPosition().then(function (pos) {
+            _this.lat = pos.coords.latitude;
+            _this.lng = pos.coords.longitude;
+            return _this.lat, _this.lng;
+        }).catch(function (err) { return console.log(err); });
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Nav */]),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Nav */])
+        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Nav */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Nav */]) === "function" && _a || Object)
     ], ViolenciaformPage.prototype, "nav", void 0);
     ViolenciaformPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-violenciaform',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\violenciaform\violenciaform.html"*/'<!--\n  Generated template for the ViolenciaformPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="primary">\n      <button ion-button menuToggle>\n          <ion-icon name="menu"></ion-icon>\n      </button>\n    <ion-title class="center">Formulario Violencia</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-list>\n    \n    <h4 class="center">Digite los siguientes campos</h4>\n    <ion-item>\n      <ion-label required stacked>Nombres</ion-label>\n      <ion-input required [(ngModel)]="arrDenuncias.Nombres" type="text"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label stacked>Apellidos</ion-label>\n      <ion-input required [(ngModel)]="arrDenuncias.Apellidos" type="text" required></ion-input>\n    </ion-item>\n\n    <ion-item>\n        <ion-label required stacked>Género</ion-label>\n        <ion-select [(ngModel)]="arrDenuncias.Genero">\n            <ion-option value="Masculino">Masculino</ion-option>\n            <ion-option value="Femenino">Femenino</ion-option>                   \n          </ion-select>\n    </ion-item>\n  \n    <ion-item>\n      <ion-label>Tipo de Documento</ion-label>\n      <ion-select required [(ngModel)]="arrDenuncias.TipoDocumento">\n        <ion-option value="CC">Cédula de ciudadanía</ion-option>\n        <ion-option value="CE">Cédula de Extranjeria</ion-option>\n        <ion-option value="TI">Tarjeta de Identidad</ion-option>        \n      </ion-select>\n    </ion-item>\n\n    <ion-item>\n      <ion-label stacked>Número de Documento</ion-label>\n      <ion-input required [(ngModel)]="arrDenuncias.NumDoc" type="number"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label stacked>Telefono</ion-label>\n      <ion-input required [(ngModel)]="arrDenuncias.Telefono" type="number"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label stacked>Correo Electrónico</ion-label>\n      <ion-input [(ngModel)]="arrDenuncias.Email" type="email"></ion-input>\n    </ion-item>\n\n    <h4 class="center">Información de la denuncia</h4>\n\n    <ion-item>\n        <ion-label stacked>Describa la denuncia</ion-label>\n        <ion-input required [(ngModel)]="arrDenuncias.Denuncia" type="text"></ion-input>\n    </ion-item>\n\n    <ion-item>\n        <ion-label stacked>Dirección de la denuncia</ion-label>\n        <ion-input [(ngModel)]="arrDenuncias.DireccionDenuncia" type="text"></ion-input>\n    </ion-item>\n\n    <ion-item>\n        <ion-label>Ubicación Actual</ion-label>\n        <ion-toggle checked="false"></ion-toggle>\n    </ion-item>  \n  \n  </ion-list>\n  \n  <div padding>\n    <button (click)="EnviarViolencia()" ion-button block>Enviar Denuncia</button>\n  </div>\n</ion-content>\n \n\n \n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\violenciaform\violenciaform.html"*/,
+            selector: 'page-violenciaform',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\violenciaform\violenciaform.html"*/'<!--\n  Generated template for the ViolenciaformPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="primary">\n      <button ion-button menuToggle>\n          <ion-icon name="menu"></ion-icon>\n      </button>\n    <ion-title class="center">Formulario Violencia</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n    <form #loginForm="ngForm"  autocomplete="off">\n        <ion-list>\n          \n          <h4 class="center">Digite los siguientes campos</h4>\n          <ion-item>\n            <ion-label stacked>Nombres</ion-label>\n            <ion-input required name="nombres" [(ngModel)]="arrDenuncias.Nombres" type="text"></ion-input>\n          </ion-item>\n      \n          <ion-item>\n            <ion-label stacked>Apellidos</ion-label>\n            <ion-input required name="apellidos" [(ngModel)]="arrDenuncias.Apellidos" type="text" required></ion-input>\n          </ion-item>\n      \n          <ion-item>\n              <ion-label stacked>Género</ion-label>\n              <ion-select require name="genero" [(ngModel)]="arrDenuncias.Genero">\n                  <ion-option value="Masculino">Masculino</ion-option>\n                  <ion-option value="Femenino">Femenino</ion-option>                   \n                </ion-select>\n          </ion-item>\n        \n          <ion-item>\n            <ion-label>Tipo de Documento</ion-label>\n            <ion-select required name="documento" [(ngModel)]="arrDenuncias.TipoDocumento">\n              <ion-option value="CC">Cédula de ciudadanía</ion-option>\n              <ion-option value="CE">Cédula de Extranjeria</ion-option>\n              <ion-option value="TI">Tarjeta de Identidad</ion-option>        \n            </ion-select>\n          </ion-item>\n      \n          <ion-item>\n            <ion-label stacked>Número de Documento</ion-label>\n            <ion-input required name="nrodocumento" [(ngModel)]="arrDenuncias.NumDoc" type="number"></ion-input>\n          </ion-item>\n      \n          <ion-item>\n            <ion-label stacked>Telefono</ion-label>\n            <ion-input required name="telefono" [(ngModel)]="arrDenuncias.Telefono" type="number"></ion-input>\n          </ion-item>\n      \n          <ion-item>\n            <ion-label stacked>Correo Electrónico</ion-label>\n            <ion-input required name="correo" [(ngModel)]="arrDenuncias.Email" type="email"></ion-input>\n          </ion-item>\n      \n          <h4 class="center">Información de la denuncia</h4>\n      \n          <ion-item>\n              <ion-label stacked>Describa la denuncia</ion-label>\n              <ion-input required name="denuncia" [(ngModel)]="arrDenuncias.Denuncia" type="text"></ion-input>\n          </ion-item>\n      \n          <ion-item>\n              <ion-label stacked>Dirección de la denuncia</ion-label>\n              <ion-input required name="direccion" [(ngModel)]="arrDenuncias.DireccionDenuncia" type="text"></ion-input>\n          </ion-item>\n      \n          \n          \n          \n          <ion-item>\n            <ion-label>Ubicación Actual</ion-label>\n            <ion-toggle name="ubicacion" [(ngModel)]="ubicacion" checked="false"></ion-toggle>\n          </ion-item>\n        \n        </ion-list>\n      \n          \n          <div padding>\n            <button (click)="EnviarViolencia()" ion-button class="submit-btn" full type="submit" [disabled]="!loginForm.form.valid">Enviar Denuncia</button>\n          </div>\n      \n        </form>\n</ion-content>\n \n\n \n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\violenciaform\violenciaform.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]])
+        __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _f || Object])
     ], ViolenciaformPage);
     return ViolenciaformPage;
+    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=violenciaform.js.map

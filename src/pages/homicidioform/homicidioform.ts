@@ -37,6 +37,7 @@ export class HomicidioformPage {
       console.log("True_toggle_gps")
       this.arrDenuncias[0]={Latitud:this.lat,Longitud:this.lng};
       this.fdb.list("/Denuncias/Homicidio").push(this.arrDenuncias)
+      this.fdb.list("/Mapa").push({Latitud:this.lat,Longitud:this.lng})
       // this.fdb.list("/Denuncias/Homicidio").push({Latitud:this.lat})
       // this.fdb.list("/Denuncias/Homicidio").push({Latitud:this.lng})
       console.log("Latitud",this.lat)

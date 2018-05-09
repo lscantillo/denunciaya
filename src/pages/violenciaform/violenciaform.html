@@ -17,73 +17,80 @@
 
 
 <ion-content padding>
-  <ion-list>
-    
-    <h4 class="center">Digite los siguientes campos</h4>
-    <ion-item>
-      <ion-label required stacked>Nombres</ion-label>
-      <ion-input required [(ngModel)]="arrDenuncias.Nombres" type="text"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label stacked>Apellidos</ion-label>
-      <ion-input required [(ngModel)]="arrDenuncias.Apellidos" type="text" required></ion-input>
-    </ion-item>
-
-    <ion-item>
-        <ion-label required stacked>Género</ion-label>
-        <ion-select [(ngModel)]="arrDenuncias.Genero">
-            <ion-option value="Masculino">Masculino</ion-option>
-            <ion-option value="Femenino">Femenino</ion-option>                   
-          </ion-select>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label>Tipo de Documento</ion-label>
-      <ion-select required [(ngModel)]="arrDenuncias.TipoDocumento">
-        <ion-option value="CC">Cédula de ciudadanía</ion-option>
-        <ion-option value="CE">Cédula de Extranjeria</ion-option>
-        <ion-option value="TI">Tarjeta de Identidad</ion-option>        
-      </ion-select>
-    </ion-item>
-
-    <ion-item>
-      <ion-label stacked>Número de Documento</ion-label>
-      <ion-input required [(ngModel)]="arrDenuncias.NumDoc" type="number"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label stacked>Telefono</ion-label>
-      <ion-input required [(ngModel)]="arrDenuncias.Telefono" type="number"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label stacked>Correo Electrónico</ion-label>
-      <ion-input [(ngModel)]="arrDenuncias.Email" type="email"></ion-input>
-    </ion-item>
-
-    <h4 class="center">Información de la denuncia</h4>
-
-    <ion-item>
-        <ion-label stacked>Describa la denuncia</ion-label>
-        <ion-input required [(ngModel)]="arrDenuncias.Denuncia" type="text"></ion-input>
-    </ion-item>
-
-    <ion-item>
-        <ion-label stacked>Dirección de la denuncia</ion-label>
-        <ion-input [(ngModel)]="arrDenuncias.DireccionDenuncia" type="text"></ion-input>
-    </ion-item>
-
-    <ion-item>
-        <ion-label>Ubicación Actual</ion-label>
-        <ion-toggle checked="false"></ion-toggle>
-    </ion-item>  
-  
-  </ion-list>
-  
-  <div padding>
-    <button (click)="EnviarViolencia()" ion-button block>Enviar Denuncia</button>
-  </div>
+    <form #loginForm="ngForm"  autocomplete="off">
+        <ion-list>
+          
+          <h4 class="center">Digite los siguientes campos</h4>
+          <ion-item>
+            <ion-label stacked>Nombres</ion-label>
+            <ion-input required name="nombres" [(ngModel)]="arrDenuncias.Nombres" type="text"></ion-input>
+          </ion-item>
+      
+          <ion-item>
+            <ion-label stacked>Apellidos</ion-label>
+            <ion-input required name="apellidos" [(ngModel)]="arrDenuncias.Apellidos" type="text" required></ion-input>
+          </ion-item>
+      
+          <ion-item>
+              <ion-label stacked>Género</ion-label>
+              <ion-select require name="genero" [(ngModel)]="arrDenuncias.Genero">
+                  <ion-option value="Masculino">Masculino</ion-option>
+                  <ion-option value="Femenino">Femenino</ion-option>                   
+                </ion-select>
+          </ion-item>
+        
+          <ion-item>
+            <ion-label>Tipo de Documento</ion-label>
+            <ion-select required name="documento" [(ngModel)]="arrDenuncias.TipoDocumento">
+              <ion-option value="CC">Cédula de ciudadanía</ion-option>
+              <ion-option value="CE">Cédula de Extranjeria</ion-option>
+              <ion-option value="TI">Tarjeta de Identidad</ion-option>        
+            </ion-select>
+          </ion-item>
+      
+          <ion-item>
+            <ion-label stacked>Número de Documento</ion-label>
+            <ion-input required name="nrodocumento" [(ngModel)]="arrDenuncias.NumDoc" type="number"></ion-input>
+          </ion-item>
+      
+          <ion-item>
+            <ion-label stacked>Telefono</ion-label>
+            <ion-input required name="telefono" [(ngModel)]="arrDenuncias.Telefono" type="number"></ion-input>
+          </ion-item>
+      
+          <ion-item>
+            <ion-label stacked>Correo Electrónico</ion-label>
+            <ion-input required name="correo" [(ngModel)]="arrDenuncias.Email" type="email"></ion-input>
+          </ion-item>
+      
+          <h4 class="center">Información de la denuncia</h4>
+      
+          <ion-item>
+              <ion-label stacked>Describa la denuncia</ion-label>
+              <ion-input required name="denuncia" [(ngModel)]="arrDenuncias.Denuncia" type="text"></ion-input>
+          </ion-item>
+      
+          <ion-item>
+              <ion-label stacked>Dirección de la denuncia</ion-label>
+              <ion-input required name="direccion" [(ngModel)]="arrDenuncias.DireccionDenuncia" type="text"></ion-input>
+          </ion-item>
+      
+          
+          
+          
+          <ion-item>
+            <ion-label>Ubicación Actual</ion-label>
+            <ion-toggle name="ubicacion" [(ngModel)]="ubicacion" checked="false"></ion-toggle>
+          </ion-item>
+        
+        </ion-list>
+      
+          
+          <div padding>
+            <button (click)="EnviarViolencia()" ion-button class="submit-btn" full type="submit" [disabled]="!loginForm.form.valid">Enviar Denuncia</button>
+          </div>
+      
+        </form>
 </ion-content>
  
 

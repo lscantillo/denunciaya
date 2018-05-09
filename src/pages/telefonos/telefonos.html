@@ -24,7 +24,7 @@
         </ion-list-header>
 
     <ion-card  class="ion-content" *ngFor="let p of pages" (click)="openPhone(p.number)">
-      <ion-card-content ion-item >
+      <ion-card-content ion-item class="home" >
           <ion-icon name="call"></ion-icon> {{p.number}}    {{p.text}}
       </ion-card-content>
     </ion-card>
