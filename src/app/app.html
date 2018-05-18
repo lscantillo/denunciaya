@@ -1,3 +1,9 @@
+<div *ngIf="showSplash" class="splash">
+    <div class="spinner">
+        <div class="cube1"></div>
+        <div class="cube2"></div>
+    </div>
+  </div>
 <ion-menu [content]="content" color="primary">
     <ion-header >
       <!-- <ion-toolbar>
@@ -22,34 +28,12 @@
           {{p.title}} <ion-icon name="bookmark"></ion-icon> 
         </button>   
         <button class="ion-content" color="primary" menuClose ion-item (click)="openMapas()">Mapa de Delito <ion-icon name="globe"></ion-icon></button>
-        <button class="ion-content" color="primary" menuClose ion-item (click)="opentelefonos()">Telefonos De Emergencia <ion-icon name="call"></ion-icon> </button>
-        
+        <button class="ion-content" color="primary" menuClose ion-item (click)="opengraficos()">Gráficas <ion-icon name="stats"></ion-icon></button>
+        <button class="ion-content" color="primary" menuClose ion-item (click)="opentelefonos()">Teléfonos De Emergencia <ion-icon name="call"></ion-icon> </button>       
         
       </ion-list>
 
-      <!-- <div id='cssmenu'>
-        <ul>
-           <li><a (click)="openHome()">Inicio</a></li>
-           <li class='active has-sub'><a href='#'>Denuncias</a>
-              <ul>
-                 <li class='has-sub'><a href='#'>Product 1</a>
-                    <ul>
-                       <li><a href='#'>Sub Product</a></li>
-                       <li><a href='#'>Sub Product</a></li>
-                    </ul>
-                 </li>
-                 <li class='has-sub'><a href='#'>Product 2</a>
-                    <ul>
-                       <li><a href='#'>Sub Product</a></li>
-                       <li><a href='#'>Sub Product</a></li>
-                    </ul>
-                 </li>
-              </ul>
-           </li>
-           <li><a href='#'>About</a></li>
-           <li><a href='#'>Contact</a></li>
-        </ul>
-        </div> -->
+     
     </ion-content>
 
   </ion-menu>

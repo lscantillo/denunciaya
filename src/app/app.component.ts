@@ -11,7 +11,8 @@ import { ClaseshurtoPage } from '../pages/claseshurto/claseshurto';
 import { MapasPage } from '../pages/mapas/mapas';
 import { AlertController } from 'ionic-angular';
 import { TelefonosPage } from '../pages/telefonos/telefonos';
-
+import { timer } from 'rxjs/observable/timer';
+import { GraficosPage } from '../pages/graficos/graficos';
 @Component({
   templateUrl: 'app.html'
 })
@@ -20,7 +21,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage:any = HomePage;
-
+  showSplash = true;
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public alertCtrl: AlertController) {
@@ -43,12 +44,20 @@ export class MyApp {
   }
 
   initializeApp() {
+  // this.platform.ready().then(() => {
+  //     // Okay, so the platform is ready and our plugins are available.
+  //     // Here you can do any higher level native things you might need.
+  //     this.statusBar.styleDefault();
+  //     this.splashScreen.hide();
+  //   });
   this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-    });
+
+    this.statusBar.styleDefault();
+    this.splashScreen.hide();  // <-- hide static image
+
+    timer(3000).subscribe(() => this.showSplash = false) // <-- hide animation after 3s
+  });
+
   }
   openHome(){
     this.nav.setRoot(HomePage);
@@ -62,6 +71,10 @@ export class MyApp {
     this.nav.setRoot(TelefonosPage)
   }
 
+  opengraficos(){
+    this.nav.push(GraficosPage)
+    //this.navCtrl.push(GraficosPage);
+  }
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario

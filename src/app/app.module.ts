@@ -22,6 +22,11 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { Geolocation } from '@ionic-native/geolocation';
 import { TelefonosPage } from '../pages/telefonos/telefonos';
 import { CallNumber } from '@ionic-native/call-number';
+import { GraficosPage } from '../pages/graficos/graficos';
+import { GraficasPage } from '../pages/graficas/graficas';
+import { InicioPage } from '../pages/inicio/inicio';
+import { MasPage } from '../pages/mas/mas';
+import { TotalPage } from '../pages/total/total';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyA_jOFmnvR-jwlbeIGD5DNxjzMKQJ4LRoI",
@@ -45,8 +50,12 @@ export const firebaseConfig = {
     HurtopersonasPage,
     HurtoresidenciasPage,
     HurtotransportePage,
-    TelefonosPage
-   
+    TelefonosPage,
+    GraficosPage,
+    GraficasPage,
+    InicioPage,
+    MasPage,
+    TotalPage   
 
   ],
   imports: [
@@ -71,8 +80,13 @@ export const firebaseConfig = {
     HurtopersonasPage,
     HurtoresidenciasPage,
     HurtotransportePage,
-    TelefonosPage
-  ],
+    TelefonosPage,
+    GraficosPage,
+    GraficasPage,
+    InicioPage,
+    MasPage,
+    TotalPage
+      ],
   providers: [
     StatusBar,
     SplashScreen,
