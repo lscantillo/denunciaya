@@ -28111,6 +28111,10 @@ page-claseshurto .home {
   font-size: 20px;
 }
 
+page-graficas .center {
+  text-align: center;
+}
+
 page-home .ion-content {
   background: #3F51B5;
   color: white;
@@ -28209,6 +28213,12 @@ page-telefonos .home {
   background: #4169E1;
   color: white;
   font-size: 20px;
+}
+
+page-total ion-card-content {
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 page-violenciaform .center {

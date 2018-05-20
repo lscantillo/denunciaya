@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { HomePage } from '../home/home';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Observable } from 'rxjs/Observable';
 /**
  * Generated class for the HurtoresidenciasPage page.
  *
@@ -23,8 +24,19 @@ export class HurtoresidenciasPage {
   lat: any;
   lng: any;  
   location: any;
+  contador: number;
+  item: Observable<any[]>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fdb: AngularFireDatabase,public geo: Geolocation) {
+    this.item = fdb.list('Denuncias/Hurto/Total').valueChanges();
+    
+    this.item.forEach(element => {
+      this.contador = element[2];
+      console.log("Element: ", element[2])
+
+    });
+    
+   
     this.showMap()
   }
 
@@ -42,12 +54,21 @@ export class HurtoresidenciasPage {
       this.fdb.list("/Denuncias/Hurto/Residencias").push(this.arrDenuncias)
       this.fdb.list("/Mapa").push({Latitud:this.lat,Longitud:this.lng})      
       console.log("Latitud",this.lat)
+
+      this.contador = this.contador + 1;
+      console.log("Nuevo item: ",this.contador)
+      //this.fdb.list('Denuncias/Total').push({Homicidio: this.contador});
+      this.fdb.list('Denuncias/Hurto').update('Total' ,{Residencias: this.contador});
       this.navCtrl.push(HomePage);
       
 
       } else{
 
-        this.fdb.list("/Denuncias/Hurto/Residencias").push(this.arrDenuncias) 
+        this.fdb.list("/Denuncias/Hurto/Residencias").push(this.arrDenuncias)
+        this.contador = this.contador + 1;
+        console.log("Nuevo item: ",this.contador)
+        //this.fdb.list('Denuncias/Total').push({Homicidio: this.contador});
+        this.fdb.list('Denuncias/Hurto').update('Total' ,{Residencias: this.contador}); 
         this.navCtrl.push(HomePage);            
         console.log("False_toggle_gps")
         

@@ -62,7 +62,6 @@ export class TotalPage {
     {value: 1, name: 'Personas'},
     {value: 2, name: 'Residencias'},
     {value: 3, name: 'Transporte'},     
-   
   ];
 
 
@@ -283,7 +282,6 @@ export class TotalPage {
     });
   }
 
-
   createChartshurto(data) {
     this.chartDataHurto = data;
    
@@ -292,19 +290,21 @@ export class TotalPage {
        let chartDataHurto = this.chartDataHurto
        console.log(chartDataHurto)
     // Create the chart
-    this.valueBarHurto = new Chart(this.valueBarHurtos.nativeElement, {
+    this.valueBarHurtos = new Chart(this.valueBarHurtos.nativeElement, {
       type: 'bar',
       data: {
         labels: Object.keys(this.hurto).map(a => this.hurto[a].name),
         datasets: [{
           data: chartDataHurto,
           backgroundColor: '#db3264'
+          
         }]
       },
       options: {
         legend: {
           display: false
         },
+        
         tooltips: {
           callbacks: {
             label: function (tooltipItems, data) {
@@ -314,9 +314,14 @@ export class TotalPage {
         },
         scales: {
           xAxes: [{
+            
             ticks: {
-              beginAtZero: true
-            }
+              beginAtZero: true,
+              fontSize: 9
+             
+            },
+            barThickness : 40,
+            
           }],
           yAxes: [{
             ticks: {
@@ -331,6 +336,9 @@ export class TotalPage {
       }
     });
   }
+
+
+  
 
 
   updateCharts(data) {

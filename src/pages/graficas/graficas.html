@@ -10,12 +10,27 @@
       <button ion-button menuToggle>
           <ion-icon name="menu"></ion-icon>
       </button>
-    <ion-title>Gráficas</ion-title>
+    <ion-title>Total</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+    <ion-card >
+        <ion-card-header>
+         Total Denuncias
+        </ion-card-header>
+        <ion-card-content>
+          <canvas #valueBarsCanvas></canvas>
+          <ion-label class="center" >
+            Total Denuncias:
+          </ion-label>
+          <ion-item class="center" *ngFor="let item of items | async">
+              {{item | json}}
+            </ion-item>
+        </ion-card-content>
+      </ion-card>
 
 </ion-content>

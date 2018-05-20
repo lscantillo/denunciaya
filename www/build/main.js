@@ -27,16 +27,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var HomicidioformPage = (function () {
     function HomicidioformPage(navCtrl, navParams, geo, fdb) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.geo = geo;
         this.fdb = fdb;
-        // arrDenuncias=[];
         this.arrDenuncias = {};
         // this.fdb.list("/Denuncias/").valueChanges().subscribe(_data=>{
         // this.arrDenuncias=_data;
         // console.log(this.arrDenuncias);
         // });
+        this.item = fdb.list('Denuncias/Total').valueChanges();
+        this.item.forEach(function (element) {
+            _this.contador = element[0];
+            console.log("Element: ", element[0]);
+        });
         this.showMap();
     }
     HomicidioformPage.prototype.EnviarHom = function () {
@@ -45,16 +50,22 @@ var HomicidioformPage = (function () {
             //this.showMap();
             console.log("True_toggle_gps");
             this.arrDenuncias[0] = { Latitud: this.lat, Longitud: this.lng };
+            console.log("Latitud", this.lat);
             this.fdb.list("/Denuncias/Homicidio").push(this.arrDenuncias);
             this.fdb.list("/Mapa").push({ Latitud: this.lat, Longitud: this.lng });
-            // this.fdb.list("/Denuncias/Homicidio").push({Latitud:this.lat})
-            // this.fdb.list("/Denuncias/Homicidio").push({Latitud:this.lng})
-            console.log("Latitud", this.lat);
+            this.contador = this.contador + 1;
+            console.log("Nuevo item: ", this.contador);
+            //this.fdb.list('Denuncias/Total').push({Homicidio: this.contador});
+            this.fdb.list('Denuncias/').update('Total', { Homicidio: this.contador });
             this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
             //this.nav.setRoot(HomePage);
         }
         else {
             this.fdb.list("/Denuncias/Homicidio").push(this.arrDenuncias);
+            this.contador = this.contador + 1;
+            console.log("Nuevo item: ", this.contador);
+            //this.fdb.list('Denuncias/Total').push({Homicidio: this.contador});
+            this.fdb.list('Denuncias/').update('Total', { Homicidio: this.contador });
             this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
             //this.nav.setRoot(HomePage);        
             console.log("False_toggle_gps");
@@ -111,6 +122,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var ViolenciaformPage = (function () {
     function ViolenciaformPage(platform, navCtrl, navParams, fdb, geo) {
+        var _this = this;
         this.platform = platform;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
@@ -118,6 +130,11 @@ var ViolenciaformPage = (function () {
         this.geo = geo;
         this.rootPage = __WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */];
         this.arrDenuncias = {};
+        this.item = fdb.list('Denuncias/Total').valueChanges();
+        this.item.forEach(function (element) {
+            _this.contador = element[2];
+            console.log("Element: ", element[2]);
+        });
         this.showMap();
     }
     ViolenciaformPage.prototype.EnviarViolencia = function () {
@@ -129,10 +146,18 @@ var ViolenciaformPage = (function () {
             this.fdb.list("/Denuncias/Violencia").push(this.arrDenuncias);
             this.fdb.list("/Mapa").push({ Latitud: this.lat, Longitud: this.lng });
             console.log("Latitud", this.lat);
+            this.contador = this.contador + 1;
+            console.log("Nuevo item: ", this.contador);
+            //this.fdb.list('Denuncias/Total').push({Homicidio: this.contador});
+            this.fdb.list('Denuncias/').update('Total', { Violencia: this.contador });
             this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
         }
         else {
             this.fdb.list("/Denuncias/Violencia").push(this.arrDenuncias);
+            this.contador = this.contador + 1;
+            console.log("Nuevo item: ", this.contador);
+            //this.fdb.list('Denuncias/Total').push({Homicidio: this.contador});
+            this.fdb.list('Denuncias/').update('Total', { Violencia: this.contador });
             this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
             console.log("False_toggle_gps");
         }
@@ -169,6 +194,10 @@ var ViolenciaformPage = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GraficasPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular_components_toast_toast_controller__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_chart_js__ = __webpack_require__(570);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_chart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_chart_js__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -180,6 +209,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
+
+
 /**
  * Generated class for the GraficasPage page.
  *
@@ -187,20 +219,87 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Ionic pages and navigation.
  */
 var GraficasPage = (function () {
-    function GraficasPage(navCtrl, navParams) {
+    function GraficasPage(navCtrl, db, toastCtrl) {
         this.navCtrl = navCtrl;
-        this.navParams = navParams;
+        this.db = db;
+        this.toastCtrl = toastCtrl;
+        this.types = [
+            { value: 0, name: 'Aplicación' },
+            { value: 1, name: 'Twitter' },
+        ];
+        this.chartData = null;
+        this.items = db.list('Datos/TotalDenuncias/').valueChanges();
     }
     GraficasPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad GraficasPage');
+        var _this = this;
+        this.ref = this.db.list('Datos/Total', function (ref) { return ref.orderByChild('month'); });
+        // Catch any update to draw the Chart
+        this.ref.valueChanges().subscribe(function (result) {
+            if (_this.chartData) {
+                _this.updateCharts(result);
+            }
+            else {
+                _this.createCharts(result);
+            }
+        });
     };
+    GraficasPage.prototype.createCharts = function (data) {
+        var _this = this;
+        this.chartData = data;
+        // Calculate Values for the Chart
+        // let chartData = this.getReportValues();
+        var chartData = this.chartData;
+        console.log(chartData);
+        // Create the chart
+        this.valueBarsChart = new __WEBPACK_IMPORTED_MODULE_4_chart_js___default.a(this.valueBarsCanvas.nativeElement, {
+            type: 'pie',
+            data: {
+                labels: Object.keys(this.types).map(function (a) { return _this.types[a].name; }),
+                datasets: [{
+                        data: chartData,
+                        // backgroundColor: '#32db64'
+                        backgroundColor: [
+                            ('#36a2eb'),
+                            ('#ff6384'),
+                        ],
+                    }]
+            },
+            options: {
+                legend: {
+                    display: true
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltipItems, data) {
+                            return data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index] + ' denuncias';
+                        }
+                    }
+                },
+            }
+        });
+    };
+    GraficasPage.prototype.updateCharts = function (data) {
+        this.chartData = data;
+        // let chartData = this.getReportValues();
+        var chartData = this.chartData;
+        // Update our dataset
+        this.valueBarsChart.data.datasets.forEach(function (dataset) {
+            dataset.data = chartData;
+        });
+        this.valueBarsChart.update();
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('valueBarsCanvas'),
+        __metadata("design:type", Object)
+    ], GraficasPage.prototype, "valueBarsCanvas", void 0);
     GraficasPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-graficas',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\graficas\graficas.html"*/'<!--\n  Generated template for the GraficasPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="primary">\n      <button ion-button menuToggle>\n          <ion-icon name="menu"></ion-icon>\n      </button>\n    <ion-title>Gráficas</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\graficas\graficas.html"*/,
+            selector: 'page-graficas',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\graficas\graficas.html"*/'<!--\n  Generated template for the GraficasPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="primary">\n      <button ion-button menuToggle>\n          <ion-icon name="menu"></ion-icon>\n      </button>\n    <ion-title>Total</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n    <ion-card >\n        <ion-card-header>\n         Total Denuncias\n        </ion-card-header>\n        <ion-card-content>\n          <canvas #valueBarsCanvas></canvas>\n          <ion-label class="center" >\n            Total Denuncias:\n          </ion-label>\n          <ion-item class="center" *ngFor="let item of items | async">\n              {{item | json}}\n            </ion-item>\n        </ion-card-content>\n      </ion-card>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\graficas\graficas.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular_components_toast_toast_controller__["a" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular_components_toast_toast_controller__["a" /* ToastController */]) === "function" && _c || Object])
     ], GraficasPage);
     return GraficasPage;
+    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=graficas.js.map
@@ -253,7 +352,7 @@ var GraficosPage = (function () {
     }
     GraficosPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-graficos',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\graficos\graficos.html"*/'<ion-tabs>\n    <ion-tab [root]="inicioRoot" tabTitle="Inicio" tabIcon="home"></ion-tab>\n    <ion-tab [root]="totalRoot" tabTitle="Total" tabIcon="trending-up"></ion-tab>\n    <ion-tab [root]="graficasRoot" tabTitle="Graficas" tabIcon="stats"></ion-tab>\n    <ion-tab [root]="masRoot" tabTitle="Mas" tabIcon="add-circle"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\graficos\graficos.html"*/
+            selector: 'page-graficos',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\graficos\graficos.html"*/'<ion-tabs>\n    <!-- <ion-tab [root]="inicioRoot" tabTitle="Inicio" tabIcon="home"></ion-tab> -->\n    <ion-tab [root]="totalRoot" tabTitle="Gráficas" tabIcon="stats"></ion-tab>\n    <ion-tab [root]="graficasRoot" tabTitle="Total" tabIcon="trending-up"></ion-tab>\n    <!-- <ion-tab [root]="masRoot" tabTitle="Mas" tabIcon="add-circle"></ion-tab> -->\n</ion-tabs>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\graficos\graficos.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]])
     ], GraficosPage);
@@ -558,7 +657,7 @@ var TotalPage = (function () {
         var chartDataHurto = this.chartDataHurto;
         console.log(chartDataHurto);
         // Create the chart
-        this.valueBarHurto = new __WEBPACK_IMPORTED_MODULE_4_chart_js___default.a(this.valueBarHurtos.nativeElement, {
+        this.valueBarHurtos = new __WEBPACK_IMPORTED_MODULE_4_chart_js___default.a(this.valueBarHurtos.nativeElement, {
             type: 'bar',
             data: {
                 labels: Object.keys(this.hurto).map(function (a) { return _this.hurto[a].name; }),
@@ -581,8 +680,10 @@ var TotalPage = (function () {
                 scales: {
                     xAxes: [{
                             ticks: {
-                                beginAtZero: true
-                            }
+                                beginAtZero: true,
+                                fontSize: 9
+                            },
+                            barThickness: 40,
                         }],
                     yAxes: [{
                             ticks: {
@@ -655,7 +756,7 @@ var TotalPage = (function () {
     ], TotalPage.prototype, "valueBarHurtos", void 0);
     TotalPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-total',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\total\total.html"*/'<!--\n  Generated template for the TotalPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="primary">\n      <button ion-button menuToggle>\n          <ion-icon name="menu"></ion-icon>\n      </button>\n    <ion-title>Total</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n    <!-- <ion-row align-items-end>\n        <ion-col col-2>\n          <button ion-button icon-only outline (click)="transaction.expense = !transaction.expense" [color]="transaction.expense ? \'danger\' : \'primary\'">\n            <ion-icon name="remove" *ngIf="transaction.expense"></ion-icon>\n            <ion-icon name="add" *ngIf="!transaction.expense"></ion-icon>\n          </button>\n        </ion-col>\n        <ion-col col-5>\n          <ion-item>\n            <ion-label floating>Value</ion-label>\n            <ion-input type="number" [(ngModel)]="transaction.value"></ion-input>\n          </ion-item>    \n        </ion-col>\n        <ion-col col-5>\n          <ion-item>\n            <ion-label floating>Total Denuncias</ion-label>\n            <ion-select [(ngModel)]="transaction.month">\n              <ion-option [value]="types.value" *ngFor="let type of types">{{ types.name }}</ion-option>\n            </ion-select>\n          </ion-item>    \n        </ion-col>\n\n        <ion-col>\n            <button ion-button full (click)="createCharts()">Actualizar <ion-icon name="refresh"></ion-icon></button>\n          </ion-col>\n\n      </ion-row>\n    \n      <ion-row>\n        <ion-col>\n          <button ion-button full (click)="updateCharts()">Actualizar <ion-icon name="refresh"></ion-icon></button>\n        </ion-col>\n      </ion-row> -->\n    \n      <!-- <ion-card [hidden]="!chartData"> -->\n      <ion-card >\n        <ion-card-header>\n          Datos de Denuncias\n        </ion-card-header>\n        <ion-card-content>\n          <canvas #valueBarsCanvas></canvas>\n        </ion-card-content>\n      </ion-card>\n\n      <ion-card >\n        <ion-card-header>\n          Datos desde Twitter\n        </ion-card-header>\n        <ion-card-content>\n          <canvas #valueBarRedes></canvas>\n        </ion-card-content>\n      </ion-card>\n\n      <ion-card >\n        <ion-card-header>\n          Datos por tipos de Denuncias\n        </ion-card-header>\n        <ion-card-content>\n          <canvas #valueBarTipos></canvas>\n        </ion-card-content>\n      </ion-card>\n\n      <ion-card >\n        <ion-card-header>\n          Datos por tipo de Hurto\n        </ion-card-header>\n        <ion-card-content>\n          <canvas #valueBarHurtos></canvas>\n        </ion-card-content>\n      </ion-card>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\total\total.html"*/,
+            selector: 'page-total',template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\total\total.html"*/'<!--\n  Generated template for the TotalPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="primary">\n      <button ion-button menuToggle>\n          <ion-icon name="menu"></ion-icon>\n      </button>\n    <ion-title>Gráficas</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  \n      <ion-card >\n        <ion-card-header>\n          Datos de Denuncias\n        </ion-card-header>\n        <ion-card-content>\n          <canvas #valueBarsCanvas></canvas>\n        </ion-card-content>\n      </ion-card>\n\n      <ion-card >\n        <ion-card-header>\n          Datos desde Twitter\n        </ion-card-header>\n        <ion-card-content>\n          <canvas #valueBarRedes></canvas>\n        </ion-card-content>\n      </ion-card>\n\n      <ion-card >\n        <ion-card-header>\n          Datos por tipos de Denuncias\n        </ion-card-header>\n        <ion-card-content>\n          <canvas #valueBarTipos></canvas>\n        </ion-card-content>\n      </ion-card>\n\n      <ion-card >\n        <ion-card-header>\n          Datos por tipo de Hurto\n        </ion-card-header>\n        <ion-card-content>\n          <canvas #valueBarHurtos></canvas>\n        </ion-card-content>\n      </ion-card>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\pages\total\total.html"*/,
         }),
         __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular_components_toast_toast_controller__["a" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular_components_toast_toast_controller__["a" /* ToastController */]) === "function" && _c || Object])
     ], TotalPage);
@@ -825,11 +926,11 @@ var map = {
 		3
 	],
 	"../pages/mas/mas.module": [
-		648,
+		649,
 		2
 	],
 	"../pages/telefonos/telefonos.module": [
-		649,
+		648,
 		1
 	],
 	"../pages/total/total.module": [
@@ -880,11 +981,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 //@IonicPage()
 var HurtotransportePage = (function () {
     function HurtotransportePage(navCtrl, navParams, fdb, geo) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.fdb = fdb;
         this.geo = geo;
         this.arrDenuncias = {};
+        this.item = fdb.list('Denuncias/Hurto/Total').valueChanges();
+        this.item.forEach(function (element) {
+            _this.contador = element[3];
+            console.log("Element: ", element[3]);
+        });
         this.showMap();
     }
     HurtotransportePage.prototype.ionViewDidLoad = function () {
@@ -899,10 +1006,18 @@ var HurtotransportePage = (function () {
             this.fdb.list("/Denuncias/Hurto/Transporte").push(this.arrDenuncias);
             this.fdb.list("/Mapa").push({ Latitud: this.lat, Longitud: this.lng });
             console.log("Latitud", this.lat);
+            this.contador = this.contador + 1;
+            console.log("Nuevo item: ", this.contador);
+            //this.fdb.list('Denuncias/Total').push({Homicidio: this.contador});
+            this.fdb.list('Denuncias/Hurto').update('Total', { Transporte: this.contador });
             this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
         }
         else {
             this.fdb.list("/Denuncias/Hurto/Transporte").push(this.arrDenuncias);
+            this.contador = this.contador + 1;
+            console.log("Nuevo item: ", this.contador);
+            //this.fdb.list('Denuncias/Total').push({Homicidio: this.contador});
+            this.fdb.list('Denuncias/Hurto').update('Total', { Transporte: this.contador });
             this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
             console.log("False_toggle_gps");
         }
@@ -954,11 +1069,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var HurtocomercioPage = (function () {
     function HurtocomercioPage(navCtrl, navParams, fdb, geo) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.fdb = fdb;
         this.geo = geo;
         this.arrDenuncias = {};
+        this.item = fdb.list('Denuncias/Hurto/Total').valueChanges();
+        this.item.forEach(function (element) {
+            _this.contador = element[0];
+            console.log("Element: ", element[0]);
+        });
         this.showMap();
     }
     HurtocomercioPage.prototype.ionViewDidLoad = function () {
@@ -973,10 +1094,18 @@ var HurtocomercioPage = (function () {
             this.fdb.list("/Denuncias/Hurto/Comercio").push(this.arrDenuncias);
             this.fdb.list("/Mapa").push({ Latitud: this.lat, Longitud: this.lng });
             console.log("Latitud", this.lat);
+            this.contador = this.contador + 1;
+            console.log("Nuevo item: ", this.contador);
+            //this.fdb.list('Denuncias/Total').push({Homicidio: this.contador});
+            this.fdb.list('Denuncias/Hurto').update('Total', { Comercio: this.contador });
             this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
         }
         else {
             this.fdb.list("/Denuncias/Hurto/Comercio").push(this.arrDenuncias);
+            this.contador = this.contador + 1;
+            console.log("Nuevo item: ", this.contador);
+            //this.fdb.list('Denuncias/Total').push({Homicidio: this.contador});
+            this.fdb.list('Denuncias/Hurto').update('Total', { Comercio: this.contador });
             this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
             console.log("False_toggle_gps");
         }
@@ -1028,11 +1157,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var HurtopersonasPage = (function () {
     function HurtopersonasPage(navCtrl, navParams, fdb, geo) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.fdb = fdb;
         this.geo = geo;
         this.arrDenuncias = {};
+        this.item = fdb.list('Denuncias/Hurto/Total').valueChanges();
+        this.item.forEach(function (element) {
+            _this.contador = element[1];
+            console.log("Element: ", element[1]);
+        });
         this.showMap();
     }
     HurtopersonasPage.prototype.ionViewDidLoad = function () {
@@ -1047,10 +1182,18 @@ var HurtopersonasPage = (function () {
             this.fdb.list("/Denuncias/Hurto/Personas").push(this.arrDenuncias);
             this.fdb.list("/Mapa").push({ Latitud: this.lat, Longitud: this.lng });
             console.log("Latitud", this.lat);
+            this.contador = this.contador + 1;
+            console.log("Nuevo item: ", this.contador);
+            //this.fdb.list('Denuncias/Total').push({Homicidio: this.contador});
+            this.fdb.list('Denuncias/Hurto').update('Total', { Personas: this.contador });
             this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
         }
         else {
             this.fdb.list("/Denuncias/Hurto/Personas").push(this.arrDenuncias);
+            this.contador = this.contador + 1;
+            console.log("Nuevo item: ", this.contador);
+            //this.fdb.list('Denuncias/Total').push({Homicidio: this.contador});
+            this.fdb.list('Denuncias/Hurto').update('Total', { Personas: this.contador });
             this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
             console.log("False_toggle_gps");
         }
@@ -1102,11 +1245,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var HurtoresidenciasPage = (function () {
     function HurtoresidenciasPage(navCtrl, navParams, fdb, geo) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.fdb = fdb;
         this.geo = geo;
         this.arrDenuncias = {};
+        this.item = fdb.list('Denuncias/Hurto/Total').valueChanges();
+        this.item.forEach(function (element) {
+            _this.contador = element[2];
+            console.log("Element: ", element[2]);
+        });
         this.showMap();
     }
     HurtoresidenciasPage.prototype.ionViewDidLoad = function () {
@@ -1121,10 +1270,18 @@ var HurtoresidenciasPage = (function () {
             this.fdb.list("/Denuncias/Hurto/Residencias").push(this.arrDenuncias);
             this.fdb.list("/Mapa").push({ Latitud: this.lat, Longitud: this.lng });
             console.log("Latitud", this.lat);
+            this.contador = this.contador + 1;
+            console.log("Nuevo item: ", this.contador);
+            //this.fdb.list('Denuncias/Total').push({Homicidio: this.contador});
+            this.fdb.list('Denuncias/Hurto').update('Total', { Residencias: this.contador });
             this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
         }
         else {
             this.fdb.list("/Denuncias/Hurto/Residencias").push(this.arrDenuncias);
+            this.contador = this.contador + 1;
+            console.log("Nuevo item: ", this.contador);
+            //this.fdb.list('Denuncias/Total').push({Homicidio: this.contador});
+            this.fdb.list('Denuncias/Hurto').update('Total', { Residencias: this.contador });
             this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
             console.log("False_toggle_gps");
         }
@@ -1642,8 +1799,8 @@ var AppModule = (function () {
                         { loadChildren: '../pages/graficos/graficos.module#GraficosPageModule', name: 'GraficosPage', segment: 'graficos', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/hurtoform/hurtoform.module#HurtoformPageModule', name: 'HurtoformPage', segment: 'hurtoform', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/inicio/inicio.module#InicioPageModule', name: 'InicioPage', segment: 'inicio', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/mas/mas.module#MasPageModule', name: 'MasPage', segment: 'mas', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/telefonos/telefonos.module#TelefonosPageModule', name: 'TelefonosPage', segment: 'telefonos', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/mas/mas.module#MasPageModule', name: 'MasPage', segment: 'mas', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/total/total.module#TotalPageModule', name: 'TotalPage', segment: 'total', priority: 'low', defaultHistory: [] }
                     ]
                 }),
@@ -2081,7 +2238,7 @@ var MyApp = (function () {
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Nav */])
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\app\app.html"*/'<div *ngIf="showSplash" class="splash">\n    <div class="spinner">\n        <div class="cube1"></div>\n        <div class="cube2"></div>\n    </div>\n  </div>\n<ion-menu [content]="content" color="primary">\n    <ion-header >\n      <!-- <ion-toolbar>\n        <ion-title>Menu</ion-title>\n      </ion-toolbar> -->\n    </ion-header>\n    \n    <ion-content class="ion-content">\n      \n      <img src="assets/imgs/my_logo.png" alt="">\n      \n\n      <ion-list>\n       \n        <button class="ion-content" color="primary" menuClose ion-item (click)="openHome()">Inicio</button>\n        <!-- <div padding class="divcolor">\n            <h1>Denuncias <ion-icon name="bookmarks"></ion-icon></h1>\n        </div> -->\n        <button class="ion-content" color="secondary" menuClose ion-item >Denuncias <ion-icon name="bookmarks"></ion-icon></button>\n       \n        <button class="ion-content" color="primary" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n          {{p.title}} <ion-icon name="bookmark"></ion-icon> \n        </button>   \n        <button class="ion-content" color="primary" menuClose ion-item (click)="openMapas()">Mapa de Delito <ion-icon name="globe"></ion-icon></button>\n        <button class="ion-content" color="primary" menuClose ion-item (click)="opengraficos()">Gráficas <ion-icon name="stats"></ion-icon></button>\n        <button class="ion-content" color="primary" menuClose ion-item (click)="opentelefonos()">Teléfonos De Emergencia <ion-icon name="call"></ion-icon> </button>       \n        \n      </ion-list>\n\n     \n    </ion-content>\n\n  </ion-menu>\n  \n  <!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n  <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>\n<!-- <ion-nav [root]="rootPage"></ion-nav> -->\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\app\app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\app\app.html"*/'<div *ngIf="showSplash" class="splash">\n    <div class="spinner">\n        <div class="cube1"></div>\n        <div class="cube2"></div>\n    </div>\n  </div>\n<ion-menu [content]="content" color="primary">\n    <ion-header >\n      <!-- <ion-toolbar>\n        <ion-title>Menu</ion-title>\n      </ion-toolbar> -->\n    </ion-header>\n    \n    <ion-content class="ion-content">\n      \n      <img src="assets/imgs/my_logo.png" alt="">\n      \n\n      <ion-list>\n       \n        <button class="ion-content" color="primary" menuClose ion-item (click)="openHome()">Inicio</button>\n        <!-- <div padding class="divcolor">\n            <h1>Denuncias <ion-icon name="bookmarks"></ion-icon></h1>\n        </div> -->\n        <button class="ion-content" color="secondary" menuClose ion-item >Denuncias <ion-icon name="bookmarks"></ion-icon></button>\n       \n        <button class="ion-content" color="primary" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n          {{p.title}} <ion-icon name="bookmark"></ion-icon> \n        </button>   \n        <button class="ion-content" color="primary" menuClose ion-item (click)="openMapas()">Mapa de Delito <ion-icon name="globe"></ion-icon></button>\n        <button class="ion-content" color="primary" menuClose ion-item (click)="opengraficos()">Estadísticas <ion-icon name="stats"></ion-icon></button>\n        <button class="ion-content" color="primary" menuClose ion-item (click)="opentelefonos()">Teléfonos De Emergencia <ion-icon name="call"></ion-icon> </button>       \n        \n      </ion-list>\n\n     \n    </ion-content>\n\n  </ion-menu>\n  \n  <!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n  <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>\n<!-- <ion-nav [root]="rootPage"></ion-nav> -->\n'/*ion-inline-end:"C:\Users\luise\Documents\Ionic\Pfdenuncias\src\app\app.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
     ], MyApp);
